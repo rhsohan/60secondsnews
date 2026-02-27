@@ -33,7 +33,7 @@ if (!empty($searchQuery)) {
             <?php endif; ?>
         </p>
         
-        <form action="/niloy/search.php" method="GET" class="mt-8 max-w-lg mx-auto relative">
+        <form action="<?php echo BASE_URL; ?>/search.php" method="GET" class="mt-8 max-w-lg mx-auto relative">
             <input type="text" name="q" value="<?php echo htmlspecialchars($searchQuery); ?>" placeholder="Search news..." class="w-full bg-white text-space-indigo placeholder-lilac-ash rounded-full py-3 px-6 pr-12 focus:outline-none focus:ring-4 focus:ring-dusty-grape focus:border-transparent text-lg shadow-lg">
             <button type="submit" class="absolute right-4 top-1/2 transform -translate-y-1/2 text-dusty-grape hover:text-space-indigo transition-colors">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
@@ -50,7 +50,7 @@ if (!empty($searchQuery)) {
                     <article class="bg-almond-silk rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all flex flex-col">
                         <?php if($news['image']): ?>
                             <div class="h-48 overflow-hidden">
-                                <img src="/niloy/uploads/<?php echo htmlspecialchars($news['image']); ?>" alt="News Image" class="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500">
+                                <img src="<?php echo BASE_URL; ?>/uploads/<?php echo htmlspecialchars($news['image']); ?>" alt="News Image" class="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500">
                             </div>
                         <?php else: ?>
                             <div class="h-48 bg-dusty-grape flex items-center justify-center text-parchment opacity-80">
@@ -70,7 +70,7 @@ if (!empty($searchQuery)) {
                             </div>
                             
                             <h3 class="text-xl font-bold text-space-indigo mb-3 leading-snug">
-                                <a href="/niloy/article.php?id=<?php echo $news['id']; ?>" class="hover:text-dusty-grape transition-colors">
+                                <a href="<?php echo BASE_URL; ?>/article.php?id=<?php echo $news['id']; ?>" class="hover:text-dusty-grape transition-colors">
                                     <?php echo htmlspecialchars($news['title']); ?>
                                 </a>
                             </h3>
@@ -86,7 +86,7 @@ if (!empty($searchQuery)) {
                                 ?>
                             </p>
                             
-                            <a href="/niloy/article.php?id=<?php echo $news['id']; ?>" class="inline-block w-full text-center bg-space-indigo text-parchment hover:bg-dusty-grape py-2 rounded-lg font-medium transition-colors text-sm mt-auto">
+                            <a href="<?php echo BASE_URL; ?>/article.php?id=<?php echo $news['id']; ?>" class="inline-block w-full text-center bg-space-indigo text-parchment hover:bg-dusty-grape py-2 rounded-lg font-medium transition-colors text-sm mt-auto">
                                 Read in 60 Seconds
                             </a>
                         </div>
@@ -98,7 +98,7 @@ if (!empty($searchQuery)) {
                 <svg class="w-16 h-16 text-lilac-ash mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                 <h3 class="text-2xl font-bold text-space-indigo mb-2">No results found</h3>
                 <p class="text-dusty-grape">We couldn't find any articles matching "<?php echo htmlspecialchars($searchQuery); ?>".</p>
-                <a href="/niloy/index.php" class="inline-block mt-6 px-6 py-2 bg-space-indigo text-parchment rounded-full hover:bg-dusty-grape transition-colors">Return to Home</a>
+                <a href="<?php echo BASE_URL; ?>/index.php" class="inline-block mt-6 px-6 py-2 bg-space-indigo text-parchment rounded-full hover:bg-dusty-grape transition-colors">Return to Home</a>
             </div>
         <?php endif; ?>
     </div>

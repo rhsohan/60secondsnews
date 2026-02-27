@@ -7,7 +7,8 @@
         </p>
         <div class="border-t border-dusty-grape pt-6 mt-6">
             <p class="text-xs text-lilac-ash">
-                This project was developed as a university assignment to demonstrate full-stack web development using HTML, Tailwind CSS, PHP, MySQL, and JavaScript.
+                This project was developed as a university assignment to demonstrate full-stack web development using
+                HTML, Tailwind CSS, PHP, MySQL, and JavaScript.
             </p>
             <p class="text-xs text-lilac-ash mt-2">
                 &copy; <?php echo date('Y'); ?> 60 Seconds News. All rights reserved.
@@ -17,6 +18,7 @@
 </footer>
 
 <!-- Main JS -->
-<script src="/niloy/assets/js/main.js"></script>
+<script src="<?php echo BASE_URL; ?>/assets/js/main.js"></script>
 </body>
+
 </html>

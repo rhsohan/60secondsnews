@@ -52,7 +52,7 @@ $trendingNews = $stmtTrending->fetchAll();
                             <article class="bg-almond-silk rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all flex flex-col fade-in">
                                 <?php if($news['image']): ?>
                                     <div class="h-48 overflow-hidden">
-                                        <img src="/niloy/uploads/<?php echo htmlspecialchars($news['image']); ?>" alt="News Image" class="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500">
+                                        <img src="<?php echo BASE_URL; ?>/uploads/<?php echo htmlspecialchars($news['image']); ?>" alt="News Image" class="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500">
                                     </div>
                                 <?php else: ?>
                                     <div class="h-48 bg-dusty-grape flex items-center justify-center text-parchment opacity-80">
@@ -72,7 +72,7 @@ $trendingNews = $stmtTrending->fetchAll();
                                     </div>
                                     
                                     <h3 class="text-xl font-bold text-space-indigo mb-3 leading-snug">
-                                        <a href="/niloy/article.php?id=<?php echo $news['id']; ?>" class="hover:text-dusty-grape transition-colors">
+                                        <a href="<?php echo BASE_URL; ?>/article.php?id=<?php echo $news['id']; ?>" class="hover:text-dusty-grape transition-colors">
                                             <?php echo htmlspecialchars($news['title']); ?>
                                         </a>
                                     </h3>
@@ -89,7 +89,7 @@ $trendingNews = $stmtTrending->fetchAll();
                                         ?>
                                     </p>
                                     
-                                    <a href="/niloy/article.php?id=<?php echo $news['id']; ?>" class="inline-block w-full text-center bg-space-indigo text-parchment hover:bg-dusty-grape py-2 rounded-lg font-medium transition-colors text-sm mt-auto">
+                                    <a href="<?php echo BASE_URL; ?>/article.php?id=<?php echo $news['id']; ?>" class="inline-block w-full text-center bg-space-indigo text-parchment hover:bg-dusty-grape py-2 rounded-lg font-medium transition-colors text-sm mt-auto">
                                         Read in 60 Seconds
                                     </a>
                                 </div>
@@ -117,7 +117,7 @@ $trendingNews = $stmtTrending->fetchAll();
                                         <?php echo $index + 1; ?>
                                     </div>
                                     <div>
-                                        <a href="/niloy/article.php?id=<?php echo $trend['id']; ?>">
+                                        <a href="<?php echo BASE_URL; ?>/article.php?id=<?php echo $trend['id']; ?>">
                                             <h3 class="text-space-indigo font-semibold group-hover:text-dusty-grape transition-colors leading-tight mb-1">
                                                 <?php echo htmlspecialchars($trend['title']); ?>
                                             </h3>

@@ -9,7 +9,7 @@ $stmtCat->execute([$category_id]);
 $category = $stmtCat->fetch();
 
 if (!$category) {
-    echo "<div class='container mx-auto px-4 py-20 text-center'><h1 class='text-2xl text-space-indigo font-bold'>Category not found.</h1><a href='/niloy/index.php' class='text-dusty-grape hover:underline mt-4 inline-block'>Return Home</a></div>";
+    echo "<div class='container mx-auto px-4 py-20 text-center'><h1 class='text-2xl text-space-indigo font-bold'>Category not found.</h1><a href='<?php echo BASE_URL; ?>/index.php' class='text-dusty-grape hover:underline mt-4 inline-block'>Return Home</a></div>";
     require_once __DIR__ . '/includes/footer.php';
     exit;
 }
@@ -46,7 +46,7 @@ $newsList = $stmtNews->fetchAll();
                     <article class="bg-almond-silk rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all flex flex-col">
                         <?php if($news['image']): ?>
                             <div class="h-48 overflow-hidden">
-                                <img src="/niloy/uploads/<?php echo htmlspecialchars($news['image']); ?>" alt="News Image" class="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500">
+                                <img src="<?php echo BASE_URL; ?>/uploads/<?php echo htmlspecialchars($news['image']); ?>" alt="News Image" class="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500">
                             </div>
                         <?php else: ?>
                             <div class="h-48 bg-dusty-grape flex items-center justify-center text-parchment opacity-80">
@@ -66,7 +66,7 @@ $newsList = $stmtNews->fetchAll();
                             </div>
                             
                             <h3 class="text-xl font-bold text-space-indigo mb-3 leading-snug">
-                                <a href="/niloy/article.php?id=<?php echo $news['id']; ?>" class="hover:text-dusty-grape transition-colors">
+                                <a href="<?php echo BASE_URL; ?>/article.php?id=<?php echo $news['id']; ?>" class="hover:text-dusty-grape transition-colors">
                                     <?php echo htmlspecialchars($news['title']); ?>
                                 </a>
                             </h3>
@@ -82,7 +82,7 @@ $newsList = $stmtNews->fetchAll();
                                 ?>
                             </p>
                             
-                            <a href="/niloy/article.php?id=<?php echo $news['id']; ?>" class="inline-block w-full text-center bg-space-indigo text-parchment hover:bg-dusty-grape py-2 rounded-lg font-medium transition-colors text-sm mt-auto">
+                            <a href="<?php echo BASE_URL; ?>/article.php?id=<?php echo $news['id']; ?>" class="inline-block w-full text-center bg-space-indigo text-parchment hover:bg-dusty-grape py-2 rounded-lg font-medium transition-colors text-sm mt-auto">
                                 Read in 60 Seconds
                             </a>
                         </div>
@@ -94,7 +94,7 @@ $newsList = $stmtNews->fetchAll();
                 <svg class="w-16 h-16 text-lilac-ash mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path></svg>
                 <h3 class="text-2xl font-bold text-space-indigo mb-2">No articles found</h3>
                 <p class="text-dusty-grape">We haven't published any news in this category yet.</p>
-                <a href="/niloy/index.php" class="inline-block mt-6 px-6 py-2 bg-space-indigo text-parchment rounded-full hover:bg-dusty-grape transition-colors">Browse other news</a>
+                <a href="<?php echo BASE_URL; ?>/index.php" class="inline-block mt-6 px-6 py-2 bg-space-indigo text-parchment rounded-full hover:bg-dusty-grape transition-colors">Browse other news</a>
             </div>
         <?php endif; ?>
     </div>

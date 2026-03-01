@@ -215,7 +215,7 @@ $articles = $stmt->fetchAll();
 
                     <?php if (empty($articles)): ?>
                         <tr>
-                            <td colspan="6" class="text-center py-4 text-muted">No articles found in this view.</td>
+                            <td colspan="7" class="text-center py-4 text-muted">No articles found in this view.</td>
                         </tr>
                     <?php endif; ?>
                 </tbody>
@@ -225,5 +225,3 @@ $articles = $stmt->fetchAll();
 </div>
 
 <?php require_once __DIR__ . '/layout/footer.php'; ?>
-
-

@@ -285,10 +285,24 @@ $breaking_news = $db->query("SELECT title,slug,publish_at FROM articles WHERE st
                     </a>
 
                     <?php if (isset($_SESSION['user_id'])): ?>
-                        <a href="<?= ADMIN_URL ?>/index.php" class="btn btn-dark btn-sm rounded-pill px-3">Dashboard</a>
+                        <div class="dropdown">
+                            <button class="btn btn-dark btn-sm rounded-pill px-3 dropdown-toggle shadow-sm" type="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi bi-person-circle me-1"></i> <?= e($_SESSION['username'] ?? 'Account') ?>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end shadow border-0 mt-2">
+                                <li><a class="dropdown-item fw-bold" href="<?= ADMIN_URL ?>/index.php"><i
+                                            class="bi bi-speedometer2 me-2"></i> Dashboard</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item text-danger fw-bold" href="<?= AUTH_URL ?>/logout.php"><i
+                                            class="bi bi-box-arrow-right me-2"></i> Logout</a></li>
+                            </ul>
+                        </div>
                     <?php else: ?>
                         <a href="<?= AUTH_URL ?>/login.php"
-                            class="btn btn-outline-dark btn-sm rounded-pill fw-bold px-3">Login</a>
+                            class="btn btn-outline-dark btn-sm rounded-pill fw-bold px-3 shadow-sm">Login</a>
                     <?php endif; ?>
                 </div>
             </div>
@@ -305,7 +319,6 @@ $breaking_news = $db->query("SELECT title,slug,publish_at FROM articles WHERE st
                 </form>
             </div>
         </div>
-        </nav>
 
         <?php if (!empty($breaking_news)): ?>
             <!-- Breaking News Ticker -->

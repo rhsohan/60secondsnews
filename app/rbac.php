@@ -7,7 +7,7 @@ require_once __DIR__ . '/db.php';
  */
 function is_logged_in()
 {
-    return isset($_SESSION['user_id']);
+    return isset($_SESSION['user_id']) && isset($_SESSION['role_id']);
 }
 
 /**
@@ -16,6 +16,7 @@ function is_logged_in()
 function require_login()
 {
     if (!is_logged_in()) {
+        $_SESSION['redirect_to'] = $_SERVER['REQUEST_URI'];
         header('Location: ' . BASE_URL . '/auth/login.php');
         exit;
     }
@@ -30,8 +31,10 @@ function has_permission($permission)
         return false;
     }
 
+    $role_id = $_SESSION['role_id'] ?? 0;
+
     // Admins (role_id 1) have all permissions implicitly or configured in the DB
-    if ($_SESSION['role_id'] == 1) {
+    if ($role_id == 1) {
         return true;
     }
 
@@ -41,7 +44,7 @@ function has_permission($permission)
         FROM role_permissions 
         WHERE role_id = ? AND permission_string = ?
     ");
-    $stmt->execute([$_SESSION['role_id'], $permission]);
+    $stmt->execute([$role_id, $permission]);
     return $stmt->fetchColumn() !== false;
 }
 

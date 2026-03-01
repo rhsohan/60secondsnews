@@ -104,6 +104,8 @@ $users = $db->query("
                             <td>
                                 <?php if ($user['status'] == 'active'): ?>
                                     <span class="badge bg-success">Active</span>
+                                <?php elseif ($user['status'] == 'inactive'): ?>
+                                    <span class="badge bg-warning text-dark">Pending</span>
                                 <?php else: ?>
                                     <span class="badge bg-danger">Banned</span>
                                 <?php endif; ?>

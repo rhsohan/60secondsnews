@@ -4,8 +4,10 @@ require_once __DIR__ . '/../../config/config.php';
 require_once __DIR__ . '/../../app/db.php';
 require_once __DIR__ . '/../../app/helpers.php';
 
+require_once __DIR__ . '/../../app/rbac.php';
+
 // Redirect if already logged in
-if (isset($_SESSION['user_id'])) {
+if (is_logged_in()) {
     header('Location: ' . ADMIN_URL . '/index.php');
     exit;
 }

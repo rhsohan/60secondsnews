@@ -1,6 +1,6 @@
 <?php
 // cron/daily_digest.php
-// This script should be invoked via CRON: `php c:\xampp\htdocs\60secnews\cron\daily_digest.php`
+// This script should be invoked via CRON: `php c:\xampp\htdocs\60secondsnews\scripts\daily_digest.php`
 
 // Prevent HTTP execution for security
 if (php_sapi_name() !== 'cli') {
@@ -10,6 +10,7 @@ if (php_sapi_name() !== 'cli') {
 
 require_once __DIR__ . '/../config/config.php';
 require_once __DIR__ . '/../app/db.php';
+require_once __DIR__ . '/../app/helpers.php';
 
 $db = DB::getInstance()->getConnection();
 
@@ -52,9 +53,9 @@ $message .= "<p>Here are the top stories you need to know today, condensed for s
 $message .= "<hr>";
 
 foreach ($top_stories as $story) {
-    $article_url = $domain . "/article.php?slug=" . $story['slug'];
-    $message .= "<h3><a href='{$article_url}' style='color:#0f1014; text-decoration:none;'>{$story['title']}</a></h3>";
-    $message .= "<p style='color:#6c757d; font-size:14px;'>{$story['summary']}</p>";
+    $article_url = $domain . "/article.php?slug=" . e($story['slug']);
+    $message .= "<h3><a href='{$article_url}' style='color:#0f1014; text-decoration:none;'>" . e($story['title']) . "</a></h3>";
+    $message .= "<p style='color:#6c757d; font-size:14px;'>" . e($story['summary']) . "</p>";
     $message .= "<a href='{$article_url}' style='color:#d90429; font-weight:bold; font-size:12px;'>READ IN 60s &rarr;</a>";
     $message .= "<br><br>";
 }

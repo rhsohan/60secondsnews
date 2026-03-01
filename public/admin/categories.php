@@ -49,8 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
             $stmt = $db->prepare("DELETE FROM categories WHERE id = ?");
             if ($stmt->execute([$id])) {
                 log_activity("Deleted category ID: $id", 'categories', $id);
-                // Clear frontend cache so the nav updates immediately
-                array_map('unlink', array_filter((array) glob(BASE_PATH . '/cache/home_*.html')));
+                clear_cache();
                 set_flash_message('success', 'Category deleted successfully.');
             } else {
                 set_flash_message('danger', 'Database error. Could not delete category.');
@@ -157,5 +156,3 @@ $categories = $db->query("
 </div>
 
 <?php require_once __DIR__ . '/layout/footer.php'; ?>
-
-

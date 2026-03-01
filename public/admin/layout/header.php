@@ -309,7 +309,7 @@ if (file_exists($settings_file)) {
                         data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="bi bi-person-circle fs-4 me-2"></i>
                         <strong>
-                            <?= e($_SESSION['username']) ?>
+                            <?= e($_SESSION['username'] ?? 'User') ?>
                         </strong>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-dark text-small shadow">

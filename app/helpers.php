@@ -130,11 +130,15 @@ function clear_cache()
         return;
     }
 
-    $files = glob($cache_dir . 'home_*.html');
-    if ($files) {
-        foreach ($files as $file) {
-            if (is_file($file)) {
-                @unlink($file);
+    // Clear homepage and article caches
+    $patterns = ['home_*.html', 'article_*.html'];
+    foreach ($patterns as $pattern) {
+        $files = glob($cache_dir . $pattern);
+        if ($files) {
+            foreach ($files as $file) {
+                if (is_file($file)) {
+                    @unlink($file);
+                }
             }
         }
     }

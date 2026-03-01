@@ -63,7 +63,27 @@ $search_query = ""; // for header compatibility
                 <div class="d-flex align-items-center ms-auto">
                     <a href="<?= BASE_URL ?>/" class="btn btn-link link-dark text-decoration-none me-3 fw-bold"><i
                             class="bi bi-house-door me-1"></i> Home</a>
-                    <!-- Notification etc can go here if needed -->
+
+                    <?php if (isset($_SESSION['user_id'])): ?>
+                        <div class="dropdown">
+                            <button class="btn btn-dark btn-sm rounded-pill px-3 dropdown-toggle shadow-sm" type="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi bi-person-circle me-1"></i> <?= e($_SESSION['username'] ?? 'Account') ?>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end shadow border-0 mt-2">
+                                <li><a class="dropdown-item fw-bold" href="<?= ADMIN_URL ?>/index.php"><i
+                                            class="bi bi-speedometer2 me-2"></i> Dashboard</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item text-danger fw-bold" href="<?= AUTH_URL ?>/logout.php"><i
+                                            class="bi bi-box-arrow-right me-2"></i> Logout</a></li>
+                            </ul>
+                        </div>
+                    <?php else: ?>
+                        <a href="<?= AUTH_URL ?>/login.php"
+                            class="btn btn-outline-dark btn-sm rounded-pill fw-bold px-3 shadow-sm">Login</a>
+                    <?php endif; ?>
                 </div>
             </div>
         </nav>
@@ -77,10 +97,12 @@ $search_query = ""; // for header compatibility
                             <p class="text-muted lead mt-2">Articles you've curated for your personal feed.</p>
                         </div>
                         <div class="d-flex gap-2 d-none d-md-flex">
-                            <div class="bg-danger bg-opacity-10 text-danger p-3 rounded-4 border border-danger border-opacity-20">
+                            <div
+                                class="bg-danger bg-opacity-10 text-danger p-3 rounded-4 border border-danger border-opacity-20">
                                 <i class="bi bi-heart-fill fs-4"></i>
                             </div>
-                            <div class="bg-dark bg-opacity-10 text-dark p-3 rounded-4 border border-dark border-opacity-20">
+                            <div
+                                class="bg-dark bg-opacity-10 text-dark p-3 rounded-4 border border-dark border-opacity-20">
                                 <i class="bi bi-bookmark-fill fs-4"></i>
                             </div>
                         </div>
@@ -88,13 +110,16 @@ $search_query = ""; // for header compatibility
 
                     <!-- Collection Tabs -->
                     <div class="d-flex gap-2 mb-5 overflow-auto pb-2" style="scrollbar-width: none;">
-                        <a href="bookmarks.php" class="btn rounded-pill px-4 fw-bold <?= $type_filter === '' ? 'btn-primary' : 'btn-outline-primary' ?>">
+                        <a href="bookmarks.php"
+                            class="btn rounded-pill px-4 fw-bold <?= $type_filter === '' ? 'btn-primary' : 'btn-outline-primary' ?>">
                             <i class="bi bi-grid-fill me-1"></i> All
                         </a>
-                        <a href="bookmarks.php?type=like" class="btn rounded-pill px-4 fw-bold <?= $type_filter === 'like' ? 'btn-danger' : 'btn-outline-danger' ?>">
+                        <a href="bookmarks.php?type=like"
+                            class="btn rounded-pill px-4 fw-bold <?= $type_filter === 'like' ? 'btn-danger' : 'btn-outline-danger' ?>">
                             <i class="bi bi-heart-fill me-1"></i> Loved
                         </a>
-                        <a href="bookmarks.php?type=bookmark" class="btn rounded-pill px-4 fw-bold <?= $type_filter === 'bookmark' ? 'btn-dark' : 'btn-outline-dark' ?>">
+                        <a href="bookmarks.php?type=bookmark"
+                            class="btn rounded-pill px-4 fw-bold <?= $type_filter === 'bookmark' ? 'btn-dark' : 'btn-outline-dark' ?>">
                             <i class="bi bi-bookmark-fill me-1"></i> Saved
                         </a>
                     </div>
@@ -170,5 +195,3 @@ $search_query = ""; // for header compatibility
 </body>
 
 </html>
-
-

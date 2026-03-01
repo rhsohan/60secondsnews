@@ -376,7 +376,7 @@ require_once __DIR__ . '/layout/header.php';
                                 $fimg = $feat->fetch();
                                 if ($fimg):
                                     ?>
-                                    <img src="<?= BASE_URL ?>/uploads/<?= $fimg['folder'] ?>/<?= $fimg['filename'] ?>"
+                                    <img src="<?= BASE_URL ?>/uploads/<?= e($fimg['folder']) ?>/<?= e($fimg['filename']) ?>"
                                         class="img-fluid rounded mb-2 border border-secondary" alt="Featured">
                                 <?php endif; endif; ?>
                         </div>
@@ -474,5 +474,3 @@ require_once __DIR__ . '/layout/header.php';
 </script>
 
 <?php require_once __DIR__ . '/layout/footer.php'; ?>
-
-

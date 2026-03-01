@@ -7,9 +7,9 @@ require_once __DIR__ . '/../app/helpers.php';
 
 $db = DB::getInstance()->getConnection();
 
-$page = isset($_GET['page']) ? (int) $_GET['page'] : 2; // Default to page 2 assuming page 1 is loaded
-$limit = 20;
-$offset = ($page - 1) * $limit;
+$page = isset($_GET['page']) ? (int) $_GET['page'] : 2;
+$limit = 6;
+$offset = ($limit - 1) + ($page - 2) * $limit;
 
 $category_slug = $_GET['category'] ?? 'all';
 $params = [];
@@ -21,23 +21,19 @@ if ($category_slug !== 'all') {
 }
 
 // Need to know the featured article ID to exclude it
-$top_story = $db->query("
-    SELECT a.id
-    FROM articles a
-    WHERE a.status = 'published' AND a.is_featured = 1 AND a.publish_at <= NOW()
-    ORDER BY a.publish_at DESC
-    LIMIT 1
-")->fetch();
+$top_story_id = 0;
+$ts_sql = "SELECT a.id FROM articles a JOIN categories c ON a.category_id = c.id WHERE a.status = 'published' AND a.is_featured = 1 AND a.publish_at <= NOW() " . $cat_condition . " ORDER BY a.publish_at DESC LIMIT 1";
+$ts_stmt = $db->prepare($ts_sql);
+$ts_stmt->execute($params);
+$top_story = $ts_stmt->fetch();
 
 if (!$top_story) {
-    $top_story = $db->query("
-        SELECT a.id
-        FROM articles a
-        WHERE a.status = 'published' AND a.publish_at <= NOW()
-        ORDER BY a.is_breaking DESC, a.is_pinned DESC, a.publish_at DESC
-        LIMIT 1
-    ")->fetch();
+    $ts_sql = "SELECT a.id FROM articles a JOIN categories c ON a.category_id = c.id WHERE a.status = 'published' AND a.publish_at <= NOW() " . $cat_condition . " ORDER BY a.is_breaking DESC, a.is_pinned DESC, a.publish_at DESC LIMIT 1";
+    $ts_stmt = $db->prepare($ts_sql);
+    $ts_stmt->execute($params);
+    $top_story = $ts_stmt->fetch();
 }
+$top_story_id = $top_story ? (int) $top_story['id'] : 0;
 
 $latest_sql = "
     SELECT a.*, c.name as category_name, c.slug as category_slug, u.username as author_name, m.filename, m.folder,
@@ -49,10 +45,10 @@ $latest_sql = "
     WHERE a.status = 'published' AND a.publish_at <= NOW()
     ";
 
-if ($top_story) {
-    $latest_sql .= " AND a.id != " . (int) $top_story['id'];
+if ($top_story_id > 0) {
+    $latest_sql .= " AND a.id != " . $top_story_id;
 }
-$latest_sql .= $cat_condition . " ORDER BY a.publish_at DESC LIMIT $limit OFFSET $offset";
+$latest_sql .= $cat_condition . " GROUP BY a.id, c.name, c.slug, u.username, m.filename, m.folder ORDER BY a.publish_at DESC LIMIT $limit OFFSET $offset";
 
 try {
     $stmt = $db->prepare($latest_sql);

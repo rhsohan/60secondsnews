@@ -1,5 +1,7 @@
 <?php
 // includes/media_svc.php
+require_once __DIR__ . '/../config/config.php';
+require_once __DIR__ . '/db.php';
 
 class MediaService
 {
@@ -55,7 +57,7 @@ class MediaService
             return [
                 'success' => true,
                 'media_id' => $media_id,
-                'path' => '/assets/uploads/' . $folder . '/' . $filename // Example path
+                'path' => BASE_URL . '/uploads/' . $folder . '/' . $filename
             ];
         }
 

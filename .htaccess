@@ -1,0 +1,11 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # 1. Access root -> load public/index.php internally
+    RewriteRule ^$ public/index.php [L]
+
+    # 2. Access anything else that doesn't exist -> try public/ directory
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.*)$ public/$1 [L]
+</IfModule>

@@ -1,0 +1,8 @@
+{
+    "user_theme": "premium",
+    "admin_theme": "premium",
+    "maintenance_mode": false,
+    "site_title": "60-Second News",
+    "require_account_comments": false,
+    "auto_approve_comments": true
+}

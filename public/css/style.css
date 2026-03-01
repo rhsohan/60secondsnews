@@ -1,0 +1,537 @@
+/* public/css/style.css */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Merriweather:ital,wght@0,300;0,700;1,300&family=Outfit:wght@300;400;600;800&display=swap');
+
+:root {
+    --font-sans: 'Inter', sans-serif;
+    --font-display: 'Outfit', sans-serif;
+    --font-serif: 'Merriweather', serif;
+    --radius-card: 24px;
+    --glass-bg: rgba(255, 255, 255, 0.7);
+    --glass-border: rgba(255, 255, 255, 0.3);
+}
+
+/* Premium Theme (Overhauled for Vibrancy) */
+.theme-premium {
+    --primary: #4f46e5;
+    /* Indigo */
+    --primary-dark: #3730a3;
+    --primary-gradient: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+    --accent: #10b981;
+    --danger: #ef4444;
+    --dark: #0f172a;
+    --light: #eff6ff;
+    /* Soft Blue */
+    --gray: #64748b;
+    --shadow-soft: 0 10px 30px -10px rgba(0, 0, 0, 0.1);
+    --shadow-hover: 0 20px 40px -15px rgba(99, 102, 241, 0.3);
+}
+
+/* Professional Theme (Subtle Vibrancy) */
+.theme-professional {
+    --primary: #1e293b;
+    --primary-dark: #0f172a;
+    --primary-gradient: linear-gradient(135deg, #1e293b 0%, #475569 100%);
+    --accent: #3b82f6;
+    --danger: #b91c1c;
+    --dark: #0f172a;
+    --light: #f1f5f9;
+    /* Slate Blue-Gray */
+    --gray: #475569;
+    --shadow-soft: 0 2px 10px rgba(0, 0, 0, 0.05);
+    --shadow-hover: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* Midnight Theme (Deep Dark Mode) */
+.theme-midnight {
+    --primary: #8b5cf6;
+    /* Violet */
+    --primary-dark: #6d28d9;
+    --primary-gradient: linear-gradient(135deg, #8b5cf6 0%, #d946ef 100%);
+    --accent: #f43f5e;
+    --danger: #e11d48;
+    --dark: #f8fafc;
+    /* Light text for dark bg */
+    --light: #020617;
+    /* Very dark blue */
+    --gray: #94a3b8;
+    --glass-bg: rgba(15, 23, 42, 0.8);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.5);
+    --shadow-hover: 0 20px 50px rgba(139, 92, 246, 0.2);
+}
+
+body {
+    font-family: var(--font-sans);
+    background-color: var(--light);
+    color: var(--dark);
+    -webkit-font-smoothing: antialiased;
+    margin: 0;
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* Vibrant Mesh Background */
+body::before {
+    content: "";
+    position: fixed;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at 10% 20%, rgba(99, 102, 241, 0.1) 0%, transparent 40%),
+        radial-gradient(circle at 90% 80%, rgba(168, 85, 247, 0.1) 0%, transparent 40%),
+        radial-gradient(circle at 50% 50%, rgba(16, 185, 129, 0.05) 0%, transparent 60%);
+    z-index: -1;
+    animation: mesh-move 20s ease-in-out infinite alternate;
+}
+
+@keyframes mesh-move {
+    0% {
+        transform: translate(0, 0) rotate(0deg);
+    }
+
+    100% {
+        transform: translate(5%, 5%) rotate(5deg);
+    }
+}
+
+.main-content-wrapper {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Navbar with Glassmorphism */
+.navbar {
+    background: var(--glass-bg) !important;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--glass-border);
+    transition: all 0.3s ease;
+}
+
+.navbar-brand {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 1.6rem;
+    letter-spacing: -0.5px;
+    color: var(--dark) !important;
+}
+
+.navbar-brand span {
+    background: var(--primary-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* News Cards (Premium Glass) */
+.news-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-radius: var(--radius-card);
+    border: 1px solid var(--glass-border);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+    overflow: hidden;
+    text-decoration: none !important;
+    box-shadow: var(--shadow-soft);
+}
+
+.news-card:hover {
+    transform: translateY(-12px) scale(1.02);
+    box-shadow: var(--shadow-hover);
+    border-color: rgba(99, 102, 241, 0.4);
+}
+
+.card-img-wrapper {
+    position: relative;
+    height: 260px;
+    overflow: hidden;
+}
+
+.card-img-wrapper::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 40%;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.3), transparent);
+}
+
+.card-img-wrapper img {
+    transition: transform 0.8s ease;
+}
+
+.news-card:hover .card-img-wrapper img {
+    transform: scale(1.1);
+}
+
+/* Ticker with Glow (Breaking News Red/White Theme) */
+.breaking-ticker {
+    background: linear-gradient(90deg, #b91c1c 0%, #ef4444 100%) !important;
+    border-bottom: 2px solid white !important;
+    color: white !important;
+}
+
+.ticker-box {
+    background: white !important;
+    color: #b91c1c !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    padding: 6px 15px;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+/* Filter Buttons (Glassy) */
+.filter-btn {
+    display: inline-block;
+    padding: 10px 22px;
+    border-radius: 50px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(5px);
+    border: 1px solid var(--glass-border);
+    color: var(--gray);
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+}
+
+.filter-btn:hover {
+    background: white;
+    transform: translateY(-2px);
+    color: var(--primary);
+}
+
+.filter-btn.active {
+    background: var(--primary-gradient);
+    border-color: transparent;
+    color: white;
+    box-shadow: 0 8px 20px rgba(99, 102, 241, 0.3);
+}
+
+/* Sidebar Styling */
+.card-header {
+    background: transparent !important;
+    border-bottom: 2px solid var(--primary);
+    font-weight: 800;
+    font-family: var(--font-display);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding-left: 0 !important;
+    margin-bottom: 1.5rem;
+}
+
+.sidebar-item {
+    transition: all 0.2s ease;
+    border-radius: 12px;
+    padding: 10px;
+}
+
+.sidebar-item:hover {
+    background: rgba(99, 102, 241, 0.05);
+}
+
+/* Glass Panel Utility */
+.glass-panel {
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-soft);
+}
+
+/* Article Page Enhancements */
+.article-header h1 {
+    font-family: var(--font-display);
+    font-weight: 800;
+    letter-spacing: -1px;
+    line-height: 1.1;
+    background: linear-gradient(135deg, var(--dark) 0%, #475569 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.article-content {
+    font-size: 1.2rem;
+    line-height: 1.8;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--light);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--gray);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--primary);
+}
+
+/* Footer (Glassy) */
+footer {
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    border-top: 1px solid var(--glass-border);
+    padding: 3rem 0;
+}
+
+/* Dropdown on Hover */
+@media (hover: hover) {
+    .sticky-filters .dropdown:hover>.dropdown-menu {
+        display: block !important;
+        margin-top: 0;
+    }
+
+    /* Ensure there's no gap for the mouse to fall into */
+    .sticky-filters .dropdown>.dropdown-menu {
+        margin-top: 0;
+    }
+}
+
+/* Reading Progress Bar */
+#reading-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 4px;
+    background: var(--primary);
+    z-index: 9999;
+    transition: width 0.1s ease;
+    width: 0%;
+}
+
+/* Reading / Focus Mode */
+body.reading-mode {
+    background: #0f172a !important;
+    /* Dark Slate Background */
+}
+
+body.reading-mode::before,
+body.reading-mode::after {
+    display: none !important;
+    /* Hide radiant background */
+}
+
+body.reading-mode .glass-panel {
+    background: rgba(30, 41, 59, 0.95) !important;
+    border-color: #334155 !important;
+    color: #f8fafc !important;
+}
+
+body.reading-mode .text-dark,
+body.reading-mode .text-muted,
+body.reading-mode .article-title,
+body.reading-mode h1,
+body.reading-mode h2,
+body.reading-mode h3,
+body.reading-mode h4,
+body.reading-mode p,
+body.reading-mode .filter-btn {
+    color: #e2e8f0 !important;
+    -webkit-text-fill-color: initial !important;
+    /* Override gradient text */
+}
+
+body.reading-mode .navbar,
+body.reading-mode .sticky-filters {
+    background: rgba(15, 23, 42, 0.95) !important;
+    border-color: #334155 !important;
+}
+
+body.reading-mode .bg-light {
+    background: #1e293b !important;
+}
+
+body.reading-mode .border-bottom {
+    border-color: #334155 !important;
+}
+
+body.reading-mode .dropdown-menu {
+    background: #1e293b !important;
+    border: 1px solid #334155 !important;
+}
+
+body.reading-mode .dropdown-item {
+    color: #e2e8f0 !important;
+}
+
+body.reading-mode .dropdown-item:hover {
+    background: #334155 !important;
+}
+
+/* Premium Pagination (White & Light Green Mixture) */
+.pagination-premium {
+    display: flex;
+    padding-left: 0;
+    list-style: none;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(16, 185, 129, 0.2);
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(16, 185, 129, 0.08);
+    margin: 0 auto;
+    width: fit-content;
+    padding: 6px;
+    position: relative;
+    z-index: 1;
+}
+
+/* Pagination - Theme-specific overrides removed for consistent green aesthetic */
+.pagination-premium::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at top left, rgba(16, 185, 129, 0.05), transparent);
+    z-index: -1;
+}
+
+.page-item-premium {
+    margin: 0 2px;
+}
+
+.page-link-premium {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 44px;
+    height: 44px;
+    padding: 0 16px;
+    color: #000000;
+    /* Black for pagination numbers */
+    /* Darker green for readability */
+    text-decoration: none;
+    font-weight: 700;
+    font-family: var(--font-display);
+    border-radius: 10px;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    background: transparent;
+    user-select: none;
+}
+
+.page-item-premium.active .page-link-premium {
+    background: linear-gradient(135deg, #10b981, #34d399);
+    /* Green gradient */
+    color: white !important;
+    box-shadow: 0 8px 20px rgba(16, 185, 129, 0.3);
+    transform: scale(1.05);
+}
+
+.page-item-premium:not(.active):not(.disabled) .page-link-premium:hover {
+    background: rgba(16, 185, 129, 0.1);
+    /* Soft green tint hover */
+    color: #059669;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(16, 185, 129, 0.1);
+}
+
+/* Ensure pagination numbers stay black across themes */
+body.theme-premium .page-link-premium,
+body.reading-mode .page-link-premium {
+    color: #000000;
+    /* Black pagination numbers */
+}
+
+body.theme-premium .page-item-premium:not(.active):not(.disabled) .page-link-premium:hover,
+body.reading-mode .page-item-premium:not(.active):not(.disabled) .page-link-premium:hover {
+    background: rgba(16, 185, 129, 0.2);
+    color: white;
+}
+
+.page-item-premium:not(.active):not(.disabled) .page-link-premium:active {
+    transform: translateY(0) scale(0.95);
+}
+
+.page-item-premium.disabled .page-link-premium {
+    color: #cbd5e1;
+    cursor: not-allowed;
+    opacity: 0.4;
+}
+
+body.theme-premium .page-item-premium.disabled .page-link-premium,
+body.reading-mode .page-item-premium.disabled .page-link-premium {
+    color: #334155;
+}
+
+.page-item-premium.disabled span.page-link-premium {
+    pointer-events: none;
+}
+
+/* Decorative Underglow Baseline (Green Gradient) */
+.pagination-premium::after {
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    left: 20%;
+    right: 20%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(16, 185, 129, 0.3), transparent);
+    z-index: -1;
+}
+
+/* Premium Search Box (Consistent Gray and White Theme) */
+.search-box-premium {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background: #f1f5f9 !important;
+    /* Light slate gray */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid #cbd5e1 !important;
+    /* Medium gray border */
+    border-radius: 12px;
+    padding: 0 15px;
+    height: 42px;
+    transition: all 0.3s ease;
+}
+
+.search-box-premium:focus-within {
+    background: #ffffff !important;
+    /* Pure white on focus */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    border-color: #64748b !important;
+    /* Slate gray on focus */
+}
+
+.search-box-premium i {
+    color: #64748b !important;
+    /* Gray icon */
+    margin-right: 10px;
+    font-size: 0.9rem;
+}
+
+.search-box-premium input {
+    background: transparent !important;
+    border: none !important;
+    outline: none !important;
+    width: 100%;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #1e293b !important;
+    /* Dark gray text */
+}
+
+.search-box-premium input::placeholder {
+    color: #94a3b8 !important;
+    /* Lighter gray placeholder */
+}

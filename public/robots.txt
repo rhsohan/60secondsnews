@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /auth/
+Disallow: /cache/
+Disallow: /cron/
+Disallow: /includes/
+
+Sitemap: http://localhost/60secnews/public/sitemap.php

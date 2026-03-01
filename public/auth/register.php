@@ -1,14 +1,12 @@
 <?php
-// auth/register.php
+// auth/register.php — Public registration is disabled.
+// User accounts are created exclusively by administrators.
 require_once __DIR__ . '/../../config/config.php';
-require_once __DIR__ . '/../../app/db.php';
 require_once __DIR__ . '/../../app/helpers.php';
 
-// Redirect if already logged in
-if (isset($_SESSION['user_id'])) {
-    header('Location: ' . ADMIN_URL . '/index.php');
-    exit;
-}
+set_flash_message('info', 'Account registration is not available. Please contact an administrator for access.');
+header('Location: login.php');
+exit;
 
 $error = '';
 $success = '';
@@ -168,5 +166,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </body>
 
 </html>
-
-

@@ -104,9 +104,6 @@ $users = $db->query("
                             <td>
                                 <?php if ($user['status'] == 'active'): ?>
                                     <span class="badge bg-success">Active</span>
-                                <?php elseif ($user['status'] == 'inactive'): ?>
-                                    <span class="badge bg-warning text-dark"><i class="bi bi-hourglass-split"></i> Pending
-                                        Approval</span>
                                 <?php else: ?>
                                     <span class="badge bg-danger">Banned</span>
                                 <?php endif; ?>
@@ -125,19 +122,12 @@ $users = $db->query("
                                             <input type="hidden" name="action" value="toggle_status">
                                             <input type="hidden" name="user_id" value="<?= $user['id'] ?>">
                                             <input type="hidden" name="status" value="<?= $user['status'] ?>">
-                                            <?php if ($user['status'] == 'inactive'): ?>
-                                                <button type="submit" class="btn btn-sm btn-outline-success" title="Approve User"
-                                                    onclick="return confirm('Are you sure you want to approve this user?');">
-                                                    <i class="bi bi-check-lg"></i> Approve
-                                                </button>
-                                            <?php else: ?>
-                                                <button type="submit"
-                                                    class="btn btn-sm <?= $user['status'] == 'active' ? 'btn-outline-warning' : 'btn-outline-success' ?>"
-                                                    title="Toggle Status"
-                                                    onclick="return confirm('Are you sure you want to change this user\'s status?');">
-                                                    <i class="bi <?= $user['status'] == 'active' ? 'bi-ban' : 'bi-check-circle' ?>"></i>
-                                                </button>
-                                            <?php endif; ?>
+                                            <button type="submit"
+                                                class="btn btn-sm <?= $user['status'] == 'active' ? 'btn-outline-warning' : 'btn-outline-success' ?>"
+                                                title="Toggle Status"
+                                                onclick="return confirm('Are you sure you want to change this user\'s status?');">
+                                                <i class="bi <?= $user['status'] == 'active' ? 'bi-ban' : 'bi-check-circle' ?>"></i>
+                                            </button>
                                         </form>
                                         <form method="POST" class="d-inline">
                                             <?= csrf_field() ?>
@@ -160,5 +150,3 @@ $users = $db->query("
 </div>
 
 <?php require_once __DIR__ . '/layout/footer.php'; ?>
-
-

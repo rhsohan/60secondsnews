@@ -10,7 +10,6 @@ $published_articles = $db->query("SELECT COUNT(*) FROM articles WHERE status = '
 $pending_articles = $db->query("SELECT COUNT(*) FROM articles WHERE status = 'pending'")->fetchColumn();
 $total_views = $db->query("SELECT SUM(view_count) FROM views")->fetchColumn() ?: 0;
 $total_users = $db->query("SELECT COUNT(*) FROM users")->fetchColumn();
-$pending_users = $db->query("SELECT COUNT(*) FROM users WHERE status = 'inactive'")->fetchColumn();
 
 // Fetch recent activity
 $recent_logs = $db->query("
@@ -25,18 +24,7 @@ $recent_logs = $db->query("
 
 <h1 class="h3 mb-4 text-white">Dashboard Overview</h1>
 
-<?php if ($pending_users > 0 && has_permission('manage_users')): ?>
-    <div class="alert alert-warning d-flex align-items-center mb-4 border-warning" role="alert"
-        style="background-color: rgba(255, 193, 7, 0.1); color: #ffc107;">
-        <i class="bi bi-person-fill-exclamation fs-3 me-3"></i>
-        <div>
-            <strong>Action Required:</strong> You have <strong><?= $pending_users ?></strong> new user account(s) pending
-            approval.
-            <a href="users.php" class="alert-link text-warning text-decoration-underline ms-2">Review now <i
-                    class="bi bi-arrow-right"></i></a>
-        </div>
-    </div>
-<?php endif; ?>
+
 
 <div class="row g-4 mb-4">
     <!-- Stat Cards -->
@@ -203,5 +191,3 @@ $recent_logs = $db->query("
 </div>
 
 <?php require_once __DIR__ . '/layout/footer.php'; ?>
-
-

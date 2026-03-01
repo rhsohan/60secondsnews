@@ -216,9 +216,7 @@ $is_bookmarked = in_array('bookmark', $interactions);
                         <a href="<?= ADMIN_URL ?>/index.php" class="btn btn-dark btn-sm rounded-pill px-3">Dashboard</a>
                     <?php else: ?>
                         <a href="<?= AUTH_URL ?>/login.php"
-                            class="btn btn-outline-dark btn-sm rounded-pill fw-bold px-3 me-2">Login</a>
-                        <a href="<?= AUTH_URL ?>/register.php" class="btn btn-dark btn-sm rounded-pill fw-bold px-3">Sign
-                            Up</a>
+                            class="btn btn-outline-dark btn-sm rounded-pill fw-bold px-3">Login</a>
                     <?php endif; ?>
                 </div>
             </div>

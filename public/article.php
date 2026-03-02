@@ -12,24 +12,8 @@ if (!$slug) {
 
 $db = DB::getInstance()->getConnection();
 
-// --- Caching layer (Simple 5-minute cache for articles) ---
-$cache_file = CACHE_PATH . '/article_' . md5($slug) . '.html';
-$cache_time = 300; // 5 mins
-if (!isset($_SESSION['user_id']) && file_exists($cache_file) && (time() - filemtime($cache_file)) < $cache_time) {
-    if (!isset($_GET['nocache'])) {
-        echo file_get_contents($cache_file);
-        echo "<!-- Cached article at " . date('Y-m-d H:i:s', filemtime($cache_file)) . " -->";
-        // We still need to track the view!
-        $stmt_v = $db->prepare("SELECT id FROM articles WHERE slug = ?");
-        $stmt_v->execute([$slug]);
-        $aid = $stmt_v->fetchColumn();
-        if ($aid) {
-            $db->prepare("INSERT INTO views (article_id, view_date, view_count) VALUES (?, CURDATE(), 1) ON DUPLICATE KEY UPDATE view_count = view_count + 1")->execute([$aid]);
-        }
-        exit;
-    }
-}
-ob_start(); // Start capturing output
+// Clean all caches when page loads
+clear_cache();
 
 $stmt = $db->prepare("
     SELECT a.*, c.name as category_name, c.slug as category_slug, u.username as author_name, r.name as role_name, m.filename, m.folder
@@ -627,13 +611,5 @@ $is_bookmarked = in_array('bookmark', $interactions);
 
 </html>
 <?php
-// End Output Buffering and save cache
-$content = ob_get_clean();
-if (!isset($_SESSION['user_id'])) {
-    if (!is_dir(CACHE_PATH)) {
-        mkdir(CACHE_PATH, 0755, true);
-    }
-    file_put_contents($cache_file, $content);
-}
-echo $content;
+
 ?>

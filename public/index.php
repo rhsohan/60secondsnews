@@ -6,17 +6,8 @@ require_once __DIR__ . '/../app/helpers.php';
 
 $db = DB::getInstance()->getConnection();
 
-// --- Caching layer (Simple 5-minute cache for homepage) ---
-$cache_file = CACHE_PATH . '/home_' . md5($_SERVER['REQUEST_URI']) . '.html';
-$cache_time = 300; // 5 mins
-if (!isset($_SESSION['user_id']) && file_exists($cache_file) && (time() - filemtime($cache_file)) < $cache_time) {
-    if (!isset($_GET['nocache'])) {
-        echo file_get_contents($cache_file);
-        echo "<!-- Cached at " . date('Y-m-d H:i:s', filemtime($cache_file)) . " -->";
-        exit;
-    }
-}
-ob_start(); // Start capturing output
+// Clean all caches when page loads
+clear_cache();
 
 // Handle Filters
 $category_slug = $_GET['category'] ?? 'all';
@@ -773,13 +764,5 @@ $breaking_news = $db->query("SELECT title,slug,publish_at FROM articles WHERE st
 
 </html>
 <?php
-// End Output Buffering and save cache
-$content = ob_get_clean();
-if (!isset($_SESSION['user_id'])) {
-    if (!is_dir(CACHE_PATH)) {
-        mkdir(CACHE_PATH, 0755, true);
-    }
-    file_put_contents($cache_file, $content);
-}
-echo $content;
+
 ?>

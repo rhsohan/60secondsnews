@@ -283,17 +283,7 @@ if (file_exists($settings_file)) {
                             </a>
                         </li>
                     <?php endif; ?>
-                    <?php if (has_permission('manage_settings')): ?>
-                        <li class="nav-item mt-3">
-                            <form action="<?= ADMIN_URL ?>/clear_cache.php" method="POST"
-                                onsubmit="return confirm('Are you sure you want to clear the frontend cache?');">
-                                <?= csrf_field() ?>
-                                <button type="submit" class="nav-link w-100 text-start border-0 bg-transparent text-danger">
-                                    <i class="bi bi-trash text-danger"></i> Clear Cache
-                                </button>
-                            </form>
-                        </li>
-                    <?php endif; ?>
+
                 </ul>
 
                 <hr class="border-secondary mt-5">

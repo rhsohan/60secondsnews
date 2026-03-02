@@ -15,8 +15,7 @@ $settings_file = BASE_PATH . '/config/settings.json';
 $settings = [
     'maintenance_mode' => false,
     'site_title' => '60-Second News',
-    'require_account_comments' => false,
-    'auto_approve_comments' => true
+    'require_account_comments' => false
 ];
 
 if (file_exists($settings_file)) {
@@ -32,7 +31,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $settings['maintenance_mode'] = isset($_POST['maintenance_mode']);
     $settings['site_title'] = trim($_POST['site_title']);
     $settings['require_account_comments'] = isset($_POST['require_account_comments']);
-    $settings['auto_approve_comments'] = isset($_POST['auto_approve_comments']);
 
     file_put_contents($settings_file, json_encode($settings, JSON_PRETTY_PRINT));
     log_activity("Updated system settings", 'config');
@@ -82,15 +80,7 @@ require_once __DIR__ . '/layout/header.php';
                         </label>
                     </div>
 
-                    <div class="form-check form-switch mb-4">
-                        <input class="form-check-input" type="checkbox" name="auto_approve_comments"
-                            id="auto_approve_comments" <?= $settings['auto_approve_comments'] ? 'checked' : '' ?>>
-                        <label class="form-check-label text-white" for="auto_approve_comments">
-                            Auto-approve Comments <br>
-                            <small class="text-muted">New comments will be published immediately without
-                                moderation.</small>
-                        </label>
-                    </div>
+
 
                     <button type="submit" class="btn btn-primary"><i class="bi bi-save"></i> Save Settings</button>
                 </form>
@@ -100,5 +90,3 @@ require_once __DIR__ . '/layout/header.php';
 </div>
 
 <?php require_once __DIR__ . '/layout/footer.php'; ?>
-
-

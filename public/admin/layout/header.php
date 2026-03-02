@@ -247,14 +247,7 @@ if (file_exists($settings_file)) {
                             </a>
                         </li>
                     <?php endif; ?>
-                    <?php if (has_permission('upload_media')): ?>
-                        <li class="nav-item">
-                            <a class="nav-link <?= basename($_SERVER['PHP_SELF']) == 'media.php' ? 'active' : '' ?>"
-                                href="<?= ADMIN_URL ?>/media.php">
-                                <i class="bi bi-image"></i> Media
-                            </a>
-                        </li>
-                    <?php endif; ?>
+
                     <?php if (has_permission('manage_categories')): ?>
                         <li class="nav-item">
                             <a class="nav-link <?= basename($_SERVER['PHP_SELF']) == 'categories.php' ? 'active' : '' ?>"

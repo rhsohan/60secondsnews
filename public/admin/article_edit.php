@@ -16,7 +16,7 @@ $article = [
     'content' => '',
     'category_id' => '',
     'featured_image_id' => '',
-    'status' => 'draft',
+    'status' => 'pending',
     'is_breaking' => 0,
     'is_pinned' => 0,
     'fact_checked' => 0,
@@ -49,7 +49,6 @@ $categories = $db->query("
     FROM categories c 
     LEFT JOIN categories p ON c.parent_id = p.id 
     ORDER BY COALESCE(p.name, c.name) ASC, c.parent_id IS NOT NULL, c.name ASC")->fetchAll();
-$media_latest = $db->query("SELECT * FROM media ORDER BY uploaded_at DESC LIMIT 20")->fetchAll();
 
 $error = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -64,7 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $slug = empty($_POST['slug']) ? strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $title))) : trim($_POST['slug']);
         $summary = trim($_POST['summary']); // The Who/What/Why
         $category_id = (int) $_POST['category_id'];
-        $featured_image_id = empty($_POST['featured_image_id']) ? null : (int) $_POST['featured_image_id'];
+        $featured_image_id = empty($_POST['existing_image_id']) ? null : (int) $_POST['existing_image_id'];
 
         // Process Direct Image Upload
         if (isset($_FILES['new_image']) && $_FILES['new_image']['error'] !== UPLOAD_ERR_NO_FILE) {
@@ -202,7 +201,7 @@ require_once __DIR__ . '/layout/header.php';
     </h1>
     <div>
         <span id="autosave-status" class="text-muted me-3" style="font-size: 0.85rem;"><i class="bi bi-cloud-check"></i>
-            Draft</span>
+            Saved</span>
         <a href="articles.php" class="btn btn-sm btn-outline-light"><i class="bi bi-arrow-left"></i> Back</a>
     </div>
 </div>
@@ -318,7 +317,6 @@ require_once __DIR__ . '/layout/header.php';
                         <label class="form-label text-muted">Status</label>
                         <select id="status-select" name="status"
                             class="form-select bg-dark text-white border-secondary">
-                            <option value="draft" <?= $article['status'] === 'draft' ? 'selected' : '' ?>>Draft</option>
                             <option value="pending" <?= $article['status'] === 'pending' ? 'selected' : '' ?>>Pending
                                 Review</option>
                             <?php if ($can_publish): ?>
@@ -381,24 +379,13 @@ require_once __DIR__ . '/layout/header.php';
                                 if ($fimg):
                                     ?>
                                     <img src="<?= BASE_URL ?>/uploads/<?= e($fimg['folder']) ?>/<?= e($fimg['filename']) ?>"
-                                        class="img-fluid rounded mb-2 border border-secondary" alt="Featured">
+                                        class="img-fluid rounded border border-secondary" alt="Featured">
+                                    <input type="hidden" name="existing_image_id" value="<?= $article['featured_image_id'] ?>">
                                 <?php endif; endif; ?>
                         </div>
-                        <select name="featured_image_id" class="form-select bg-dark text-white border-secondary mb-3">
-                            <option value="">No Featured Image (Text Only)</option>
-                            <?php foreach ($media_latest as $m): ?>
-                                <option value="<?= $m['id'] ?>" <?= $article['featured_image_id'] == $m['id'] ? 'selected' : '' ?>>
-                                    <?= e($m['filename']) ?>
-                                </option>
-                            <?php endforeach; ?>
-                        </select>
-                        <div class="border-top border-secondary pt-3 mt-3">
-                            <label class="form-label text-muted fw-bold">Or Upload New Image</label>
-                            <input type="file" name="new_image" class="form-control bg-dark text-white border-secondary"
-                                accept="image/jpeg,image/png,image/webp">
-                            <small class="text-muted d-block mt-1">Max 5MB (JPG, PNG, WEBP). Overrides the selection
-                                above.</small>
-                        </div>
+                        <input type="file" name="new_image" class="form-control bg-dark text-white border-secondary"
+                            accept="image/jpeg,image/png,image/webp">
+                        <small class="text-muted d-block mt-1">Select an image from your device. Max 5MB (JPG, PNG, WEBP). Leave blank to keep current image.</small>
                     </div>
                 </div>
             </div>
@@ -470,7 +457,7 @@ require_once __DIR__ . '/layout/header.php';
                 // Pseudo logic for minimal JS auto-save without heavy dependencies
                 document.getElementById('autosave-status').innerHTML = '<i class="bi bi-cloud-arrow-up"></i> Saving...';
                 setTimeout(() => {
-                    document.getElementById('autosave-status').innerHTML = '<i class="bi bi-cloud-check text-success"></i> Saved as Draft';
+                    document.getElementById('autosave-status').innerHTML = '<i class="bi bi-cloud-check text-success"></i> Saved';
                 }, 800);
             }, 3000);
         });

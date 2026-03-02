@@ -17,28 +17,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
     $article_check = $stmt->fetch();
 
     if ($article_check && (has_permission('delete_article') || $article_check['author_id'] == $_SESSION['user_id'])) {
-        $featImgId = $article_check['featured_image_id'];
-
         $db->prepare("DELETE FROM articles WHERE id = ?")->execute([$article_id]);
         log_activity("Deleted article ID $article_id", 'articles', $article_id);
         clear_cache(); // Auto-clear frontend cache
-        // Clean up media if it was exclusively used by this article and uploaded directly to the 'articles' folder
-        if ($featImgId) {
-            $stmtUsage = $db->prepare("SELECT COUNT(*) FROM articles WHERE featured_image_id = ?");
-            $stmtUsage->execute([$featImgId]);
-            if ($stmtUsage->fetchColumn() == 0) {
-                $stmtDelMedia = $db->prepare("SELECT folder, filename FROM media WHERE id = ?");
-                $stmtDelMedia->execute([$featImgId]);
-                $md = $stmtDelMedia->fetch();
-                if ($md && $md['folder'] === 'articles') {
-                    $filePath = __DIR__ . '/../uploads/' . $md['folder'] . '/' . $md['filename'];
-                    if (file_exists($filePath)) {
-                        @unlink($filePath);
-                    }
-                    $db->prepare("DELETE FROM media WHERE id = ?")->execute([$featImgId]);
-                }
-            }
-        }
 
         set_flash_message('success', "Article deleted successfully.");
     } else {
@@ -55,11 +36,10 @@ $can_edit_all = has_permission('edit_any_article');
 $can_publish = has_permission('publish_article');
 
 // Build query depending on role & filters
-$sql = "SELECT a.*, u.username as author_name, c.name as category_name, m.folder, m.filename 
+$sql = "SELECT a.*, u.username as author_name, c.name as category_name 
         FROM articles a 
         JOIN users u ON a.author_id = u.id 
-        JOIN categories c ON a.category_id = c.id 
-        LEFT JOIN media m ON a.featured_image_id = m.id";
+        JOIN categories c ON a.category_id = c.id";
 $params = [];
 $conditions = [];
 
@@ -108,10 +88,6 @@ $articles = $stmt->fetchAll();
             href="?status=pending">Pending Review <span class="badge bg-warning text-dark ms-1">!</span></a>
     </li>
     <li class="nav-item">
-        <a class="nav-link <?= $status_filter === 'draft' ? 'active bg-dark text-white border-secondary border-bottom-0' : 'text-muted' ?>"
-            href="?status=draft">Drafts</a>
-    </li>
-    <li class="nav-item">
         <a class="nav-link <?= $status_filter === 'embargoed' ? 'active bg-dark text-white border-secondary border-bottom-0' : 'text-muted' ?>"
             href="?status=embargoed">Embargoed</a>
     </li>
@@ -127,7 +103,6 @@ $articles = $stmt->fetchAll();
             <table class="table table-dark table-hover mb-0">
                 <thead>
                     <tr>
-                        <th style="width: 60px;">Image</th>
                         <th>Headline</th>
                         <th>Category</th>
                         <th>Author</th>
@@ -139,18 +114,6 @@ $articles = $stmt->fetchAll();
                 <tbody>
                     <?php foreach ($articles as $article): ?>
                         <tr>
-                            <td>
-                                <?php if ($article['filename']): ?>
-                                    <img src="<?= BASE_URL ?>/uploads/<?= e($article['folder']) ?>/<?= e($article['filename']) ?>"
-                                        class="img-thumbnail" style="width: 50px; height: 50px; object-fit: cover;"
-                                        alt="Thumbnail">
-                                <?php else: ?>
-                                    <div class="bg-secondary d-flex align-items-center justify-content-center rounded"
-                                        style="width: 50px; height: 50px;">
-                                        <i class="bi bi-image text-dark"></i>
-                                    </div>
-                                <?php endif; ?>
-                            </td>
                             <td style="max-width: 300px;">
                                 <div class="text-truncate fw-bold <?= $article['is_breaking'] ? 'text-danger' : '' ?>">
                                     <?php if ($article['is_breaking'])
@@ -170,7 +133,6 @@ $articles = $stmt->fetchAll();
                             <td>
                                 <?php
                                 $badges = [
-                                    'draft' => 'bg-secondary',
                                     'pending' => 'bg-warning text-dark',
                                     'published' => 'bg-success',
                                     'embargoed' => 'bg-info text-dark',
@@ -215,7 +177,7 @@ $articles = $stmt->fetchAll();
 
                     <?php if (empty($articles)): ?>
                         <tr>
-                            <td colspan="7" class="text-center py-4 text-muted">No articles found in this view.</td>
+                            <td colspan="6" class="text-center py-4 text-muted">No articles found in this view.</td>
                         </tr>
                     <?php endif; ?>
                 </tbody>

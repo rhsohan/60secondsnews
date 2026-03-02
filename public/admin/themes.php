@@ -106,28 +106,7 @@ require_once __DIR__ . '/layout/header.php';
                             </div>
                         </div>
 
-                        <div class="col-12">
-                            <div class="form-check theme-selector-card p-0">
-                                <input class="form-check-input d-none" type="radio" name="user_theme" id="user_midnight"
-                                    value="midnight" <?= $settings['user_theme'] == 'midnight' ? 'checked' : '' ?>>
-                                <label class="form-check-label w-100" for="user_midnight">
-                                    <div
-                                        class="theme-card-inner p-3 rounded-3 border <?= $settings['user_theme'] == 'midnight' ? 'border-primary bg-primary bg-opacity-10' : 'border-secondary border-opacity-25' ?>">
-                                        <div class="d-flex align-items-center">
-                                            <div class="flex-shrink-0 bg-dark rounded-circle p-2 me-3"
-                                                style="background-color: #020617 !important;">
-                                                <i class="bi bi-moon-stars text-white"></i>
-                                            </div>
-                                            <div>
-                                                <h6 class="mb-0 fw-bold">Midnight Deep</h6>
-                                                <small class="text-muted">High-contrast dark mode with neon
-                                                    accents.</small>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </label>
-                            </div>
-                        </div>
+
 
                     </div>
                 </div>

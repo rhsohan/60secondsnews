@@ -41,24 +41,7 @@
     --shadow-hover: 0 10px 25px rgba(0, 0, 0, 0.1);
 }
 
-/* Midnight Theme (Deep Dark Mode) */
-.theme-midnight {
-    --primary: #8b5cf6;
-    /* Violet */
-    --primary-dark: #6d28d9;
-    --primary-gradient: linear-gradient(135deg, #8b5cf6 0%, #d946ef 100%);
-    --accent: #f43f5e;
-    --danger: #e11d48;
-    --dark: #f8fafc;
-    /* Light text for dark bg */
-    --light: #020617;
-    /* Very dark blue */
-    --gray: #94a3b8;
-    --glass-bg: rgba(15, 23, 42, 0.8);
-    --glass-border: rgba(255, 255, 255, 0.1);
-    --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.5);
-    --shadow-hover: 0 20px 50px rgba(139, 92, 246, 0.2);
-}
+
 
 body {
     font-family: var(--font-sans);

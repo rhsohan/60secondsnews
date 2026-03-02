@@ -59,7 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
         exit;
     }
 }
-
+// DIR 
 require_once __DIR__ . '/layout/header.php';
 
 $categories = $db->query("
@@ -67,8 +67,8 @@ $categories = $db->query("
     FROM categories c 
     LEFT JOIN articles a ON c.id = a.category_id 
     GROUP BY c.id 
-    ORDER BY c.name ASC
-")->fetchAll();
+    ORDER BY c.name ASC")->fetchAll();
+
 
 ?>
 
@@ -83,44 +83,41 @@ $categories = $db->query("
                         <thead>
                             <tr>
                                 <th>Name</th>
-                                <th>Slug</th>
                                 <th>Articles</th>
                                 <th class="text-end">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php foreach ($categories as $cat): ?>
-                                <tr>
-                                    <td class="fw-bold">
-                                        <?= e($cat['name']) ?>
-                                    </td>
-                                    <td class="text-muted">
-                                        <?= e($cat['slug']) ?>
-                                    </td>
-                                    <td>
-                                        <span class="badge bg-primary rounded-pill">
-                                            <?= $cat['article_count'] ?>
-                                        </span>
-                                    </td>
-                                    <td class="text-end">
-                                        <?php if ($cat['article_count'] == 0): ?>
-                                            <form method="POST" action="categories.php" class="d-inline"
-                                                onsubmit="return confirm('Are you sure you want to delete this category?');">
-                                                <?= csrf_field() ?>
-                                                <input type="hidden" name="action" value="delete">
-                                                <input type="hidden" name="category_id" value="<?= $cat['id'] ?>">
-                                                <button type="submit" class="btn btn-sm btn-outline-danger">
-                                                    <i class="bi bi-trash"></i>
-                                                </button>
-                                            </form>
-                                        <?php else: ?>
-                                            <button class="btn btn-sm btn-outline-secondary" disabled
-                                                title="Cannot delete category with associated articles">
-                                                <i class="bi bi-trash"></i>
-                                            </button>
-                                        <?php endif; ?>
-                                    </td>
-                                </tr>
+                            <tr>
+                                <td class="fw-bold">
+                                    <?= e($cat['name']) ?>
+                                </td>
+
+                                <td>
+                                    <span class="badge bg-primary rounded-pill">
+                                        <?= $cat['article_count'] ?>
+                                    </span>
+                                </td>
+                                <td class="text-end">
+                                    <?php if ($cat['article_count'] == 0): ?>
+                                    <form method="POST" action="categories.php" class="d-inline"
+                                        onsubmit="return confirm('Are you sure you want to delete this category?');">
+                                        <?= csrf_field() ?>
+                                        <input type="hidden" name="action" value="delete">
+                                        <input type="hidden" name="category_id" value="<?= $cat['id'] ?>">
+                                        <button type="submit" class="btn btn-sm btn-outline-danger">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </form>
+                                    <?php else: ?>
+                                    <button class="btn btn-sm btn-outline-secondary" disabled
+                                        title="Cannot delete category with associated articles">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                    <?php endif; ?>
+                                </td>
+                            </tr>
                             <?php endforeach; ?>
                         </tbody>
                     </table>
@@ -136,9 +133,9 @@ $categories = $db->query("
             </div>
             <div class="card-body">
                 <?php if ($error): ?>
-                    <div class="alert alert-danger px-3 py-2">
-                        <?= e($error) ?>
-                    </div>
+                <div class="alert alert-danger px-3 py-2">
+                    <?= e($error) ?>
+                </div>
                 <?php endif; ?>
                 <form method="POST">
                     <?= csrf_field() ?>

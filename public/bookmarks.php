@@ -3,6 +3,7 @@
 require_once __DIR__ . '/../config/config.php';
 require_once __DIR__ . '/../app/db.php';
 require_once __DIR__ . '/../app/helpers.php';
+check_maintenance();
 
 $db = DB::getInstance()->getConnection();
 $session_id = session_id();

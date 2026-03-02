@@ -2,6 +2,53 @@
 // includes/helpers.php
 
 /**
+ * Check if maintenance mode is active
+ */
+function check_maintenance()
+{
+    $settings_file = BASE_PATH . '/config/settings.json';
+    if (file_exists($settings_file)) {
+        $settings = json_decode(file_get_contents($settings_file), true);
+        if (!empty($settings['maintenance_mode']) && empty($_SESSION['user_id'])) {
+            header('HTTP/1.1 503 Service Temporarily Unavailable');
+            header('Status: 503 Service Temporarily Unavailable');
+            header('Retry-After: 3600');
+
+            if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest' || strpos($_SERVER['HTTP_ACCEPT'] ?? '', 'application/json') !== false) {
+                header('Content-Type: application/json');
+                die(json_encode(['success' => false, 'message' => 'Site is currently in maintenance mode.']));
+            }
+
+            $login_url = defined('AUTH_URL') ? AUTH_URL . '/login.php' : '/auth/login.php';
+            $html = '<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Site Maintenance</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <style>
+        body { background-color: #f8f9fa; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; font-family: system-ui, -apple-system, sans-serif; }
+        .maintenance-card { background: white; padding: 3rem; border-radius: 1rem; box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: center; max-width: 500px; width: 90%; }
+        .icon { font-size: 4rem; color: #0d6efd; margin-bottom: 1rem; }
+    </style>
+</head>
+<body>
+    <div class="maintenance-card">
+        <div class="icon"><i class="bi bi-gear-wide-connected"></i></div>
+        <h1 class="mb-3 fw-bold">We\'ll be right back!</h1>
+        <p class="text-muted mb-4 pb-2">Our newsroom is currently updating to bring you a better experience. We apologize for the inconvenience.</p>
+        <a href="' . $login_url . '" class="btn btn-outline-dark rounded-pill px-4 fw-bold"><i class="bi bi-box-arrow-in-right me-2"></i>Admin Login</a>
+    </div>
+</body>
+</html>';
+            die($html);
+        }
+    }
+}
+
+/**
  * Sanitize output for HTML
  */
 function e($string)

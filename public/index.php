@@ -8,6 +8,7 @@ $db = DB::getInstance()->getConnection();
 
 // Clean all caches when page loads
 clear_cache();
+check_maintenance();
 
 // Handle Filters
 $category_slug = $_GET['category'] ?? 'all';
@@ -38,13 +39,9 @@ if ($search_query !== '') {
 
 // Fetch basic settings
 $settings_file = BASE_PATH . '/config/settings.json';
-$settings = ['site_title' => '60-Second News', 'maintenance_mode' => false];
+$settings = ['site_title' => '60-Second News'];
 if (file_exists($settings_file))
     $settings = array_merge($settings, json_decode(file_get_contents($settings_file), true));
-
-if ($settings['maintenance_mode'] && empty($_SESSION['user_id'])) {
-    die("<h1 style='text-align:center; margin-top:50px; font-family:sans-serif;'>Our newsroom is updating. We'll be right back.</h1>");
-}
 
 // Fetch Featured Article (Hero Section)
 $top_story_sql = "

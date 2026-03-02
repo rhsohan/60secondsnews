@@ -14,6 +14,7 @@ $db = DB::getInstance()->getConnection();
 
 // Clean all caches when page loads
 clear_cache();
+check_maintenance();
 
 $stmt = $db->prepare("
     SELECT a.*, c.name as category_name, c.slug as category_slug, u.username as author_name, r.name as role_name, m.filename, m.folder

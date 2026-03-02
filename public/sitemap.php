@@ -2,6 +2,8 @@
 // public/sitemap.php
 require_once __DIR__ . '/../config/config.php';
 require_once __DIR__ . '/../app/db.php';
+require_once __DIR__ . '/../app/helpers.php';
+check_maintenance();
 
 header("Content-Type: application/xml; charset=utf-8");
 

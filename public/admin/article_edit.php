@@ -44,7 +44,11 @@ if ($article_id > 0) {
     }
 }
 
-$categories = $db->query("SELECT * FROM categories ORDER BY name ASC")->fetchAll();
+$categories = $db->query("
+    SELECT c.*, p.name as parent_name 
+    FROM categories c 
+    LEFT JOIN categories p ON c.parent_id = p.id 
+    ORDER BY COALESCE(p.name, c.name) ASC, c.parent_id IS NOT NULL, c.name ASC")->fetchAll();
 $media_latest = $db->query("SELECT * FROM media ORDER BY uploaded_at DESC LIMIT 20")->fetchAll();
 
 $error = '';
@@ -361,7 +365,7 @@ require_once __DIR__ . '/layout/header.php';
                             <option value="">Select Category...</option>
                             <?php foreach ($categories as $cat): ?>
                                 <option value="<?= $cat['id'] ?>" <?= $article['category_id'] == $cat['id'] ? 'selected' : '' ?>>
-                                    <?= e($cat['name']) ?>
+                                    <?= $cat['parent_id'] ? '&mdash; ' : '' ?><?= e($cat['name']) ?>
                                 </option>
                             <?php endforeach; ?>
                         </select>

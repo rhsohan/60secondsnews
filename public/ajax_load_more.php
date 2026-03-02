@@ -22,7 +22,7 @@ if ($category_slug !== 'all') {
 
 // Need to know the featured article ID to exclude it
 $top_story_id = 0;
-$ts_sql = "SELECT a.id FROM articles a JOIN categories c ON a.category_id = c.id WHERE a.status = 'published' AND a.is_featured = 1 AND a.publish_at <= NOW() " . $cat_condition . " ORDER BY a.publish_at DESC LIMIT 1";
+$ts_sql = "SELECT a.id FROM articles a JOIN categories c ON a.category_id = c.id WHERE a.status = 'published' AND a.is_pinned = 1 AND a.publish_at <= NOW() " . $cat_condition . " ORDER BY a.publish_at DESC LIMIT 1";
 $ts_stmt = $db->prepare($ts_sql);
 $ts_stmt->execute($params);
 $top_story = $ts_stmt->fetch();

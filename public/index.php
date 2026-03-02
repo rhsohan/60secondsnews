@@ -64,7 +64,7 @@ $top_story_sql = "
     JOIN users u ON a.author_id = u.id
     LEFT JOIN media m ON a.featured_image_id = m.id
     LEFT JOIN views v ON a.id = v.article_id
-    WHERE a.status = 'published' AND a.is_featured = 1 AND a.publish_at <= NOW()
+    WHERE a.status = 'published' AND a.is_pinned = 1 AND a.publish_at <= NOW()
     " . $cat_condition . "
     GROUP BY a.id, c.name, c.slug, u.username, m.filename, m.folder
     ORDER BY a.publish_at DESC

@@ -32,7 +32,7 @@ if (!$article) {
     die('Article not found or not published.');
 }
 
-// Settings
+
 $settings_file = BASE_PATH . '/config/settings.json';
 $settings = ['site_title' => '60-Second News', 'require_account_comments' => false, 'auto_approve_comments' => true];
 if (file_exists($settings_file))
@@ -42,7 +42,7 @@ if (file_exists($settings_file))
 $today = date('Y-m-d');
 $db->prepare("INSERT INTO views (article_id, view_date, view_count) VALUES (?, ?, 1) ON DUPLICATE KEY UPDATE view_count = view_count + 1")->execute([$article['id'], $today]);
 
-// Handle Comment Submission
+
 $comment_error = '';
 $comment_success = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['comment'])) {
@@ -60,7 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['comment'])) {
     }
 }
 
-// Fetch Approved Comments
+
 $comments = $db->prepare("SELECT author_name, content, created_at FROM comments WHERE article_id = ? AND status = 'approved' ORDER BY created_at DESC");
 $comments->execute([$article['id']]);
 $approved_comments = $comments->fetchAll();

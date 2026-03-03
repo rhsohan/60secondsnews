@@ -216,7 +216,7 @@ $breaking_news = $db->query("SELECT title,slug,publish_at FROM articles WHERE st
                             <input type="text" name="q" value="<?= e($search_query) ?>" placeholder="Search news..."
                                 aria-label="Search">
                             <?php if ($category_slug !== 'all'): ?>
-                                <input type="hidden" name="category" value="<?= e($category_slug) ?>">
+                            <input type="hidden" name="category" value="<?= e($category_slug) ?>">
                             <?php endif; ?>
                         </div>
                     </form>
@@ -232,10 +232,10 @@ $breaking_news = $db->query("SELECT title,slug,publish_at FROM articles WHERE st
                             data-bs-toggle="dropdown" aria-expanded="false" style="font-size: 1.2rem;">
                             <i class="bi bi-bell-fill"></i>
                             <?php if (!empty($breaking_news)): ?>
-                                <span
-                                    class="position-absolute top-10 start-100 translate-middle p-1 bg-danger border border-light rounded-circle">
-                                    <span class="visually-hidden">New breaking news</span>
-                                </span>
+                            <span
+                                class="position-absolute top-10 start-100 translate-middle p-1 bg-danger border border-light rounded-circle">
+                                <span class="visually-hidden">New breaking news</span>
+                            </span>
                             <?php endif; ?>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end shadow border-0 mt-2"
@@ -246,22 +246,22 @@ $breaking_news = $db->query("SELECT title,slug,publish_at FROM articles WHERE st
                                     Breaking News Alerts</h6>
                             </li>
                             <?php if (!empty($breaking_news)): ?>
-                                <?php foreach ($breaking_news as $news): ?>
-                                    <li>
-                                        <a class="dropdown-item py-2 text-wrap border-bottom"
-                                            href="<?= BASE_URL ?>/article.php?slug=<?= e($news['slug']) ?>">
-                                            <div class="fw-bold mb-1 lh-sm" style="font-size: 0.9rem;">
-                                                <?= e($news['title']) ?>
-                                            </div>
-                                            <small class="text-muted"><i class="bi bi-clock"></i>
-                                                <?= time_ago($news['publish_at']) ?>
-                                            </small>
-                                        </a>
-                                    </li>
-                                <?php endforeach; ?>
+                            <?php foreach ($breaking_news as $news): ?>
+                            <li>
+                                <a class="dropdown-item py-2 text-wrap border-bottom"
+                                    href="<?= BASE_URL ?>/article.php?slug=<?= e($news['slug']) ?>">
+                                    <div class="fw-bold mb-1 lh-sm" style="font-size: 0.9rem;">
+                                        <?= e($news['title']) ?>
+                                    </div>
+                                    <small class="text-muted"><i class="bi bi-clock"></i>
+                                        <?= time_ago($news['publish_at']) ?>
+                                    </small>
+                                </a>
+                            </li>
+                            <?php endforeach; ?>
                             <?php else: ?>
-                                <li><span class="dropdown-item-text text-muted text-center py-3">No breaking news right
-                                        now.</span></li>
+                            <li><span class="dropdown-item-text text-muted text-center py-3">No breaking news right
+                                    now.</span></li>
                             <?php endif; ?>
                         </ul>
                     </div>
@@ -273,24 +273,24 @@ $breaking_news = $db->query("SELECT title,slug,publish_at FROM articles WHERE st
                     </a>
 
                     <?php if (isset($_SESSION['user_id'])): ?>
-                        <div class="dropdown">
-                            <button class="btn btn-dark btn-sm rounded-pill px-3 dropdown-toggle shadow-sm" type="button"
-                                data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="bi bi-person-circle me-1"></i> <?= e($_SESSION['username'] ?? 'Account') ?>
-                            </button>
-                            <ul class="dropdown-menu dropdown-menu-end shadow border-0 mt-2">
-                                <li><a class="dropdown-item fw-bold" href="<?= ADMIN_URL ?>/index.php"><i
-                                            class="bi bi-speedometer2 me-2"></i> Dashboard</a></li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <li><a class="dropdown-item text-danger fw-bold" href="<?= AUTH_URL ?>/logout.php"><i
-                                            class="bi bi-box-arrow-right me-2"></i> Logout</a></li>
-                            </ul>
-                        </div>
+                    <div class="dropdown">
+                        <button class="btn btn-dark btn-sm rounded-pill px-3 dropdown-toggle shadow-sm" type="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-person-circle me-1"></i> <?= e($_SESSION['username'] ?? 'Account') ?>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end shadow border-0 mt-2">
+                            <li><a class="dropdown-item fw-bold" href="<?= ADMIN_URL ?>/index.php"><i
+                                        class="bi bi-speedometer2 me-2"></i> Dashboard</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item text-danger fw-bold" href="<?= AUTH_URL ?>/logout.php"><i
+                                        class="bi bi-box-arrow-right me-2"></i> Logout</a></li>
+                        </ul>
+                    </div>
                     <?php else: ?>
-                        <a href="<?= AUTH_URL ?>/login.php"
-                            class="btn btn-outline-dark btn-sm rounded-pill fw-bold px-3 shadow-sm">Login</a>
+                    <a href="<?= AUTH_URL ?>/login.php"
+                        class="btn btn-outline-dark btn-sm rounded-pill fw-bold px-3 shadow-sm">Login</a>
                     <?php endif; ?>
                 </div>
             </div>
@@ -309,57 +309,57 @@ $breaking_news = $db->query("SELECT title,slug,publish_at FROM articles WHERE st
         </div>
 
         <?php if (!empty($breaking_news)): ?>
-            <!-- Breaking News Ticker -->
-            <div class="breaking-ticker py-2 shadow-sm" style="overflow: hidden; white-space: nowrap;">
-                <div class="container d-flex align-items-center">
-                    <div class="fw-bold pe-3 ps-2 py-1 text-uppercase ticker-box rounded-1 me-3" style="z-index: 2;">
-                        <i class="bi bi-broadcast"></i> Breaking
-                    </div>
-                    <!-- CSS Marquee Animation -->
-                    <style>
-                        .ticker-wrapper {
-                            flex-grow: 1;
-                            overflow: hidden;
-                            position: relative;
-                        }
+        <!-- Breaking News Ticker -->
+        <div class="breaking-ticker py-2 shadow-sm" style="overflow: hidden; white-space: nowrap;">
+            <div class="container d-flex align-items-center">
+                <div class="fw-bold pe-3 ps-2 py-1 text-uppercase ticker-box rounded-1 me-3" style="z-index: 2;">
+                    <i class="bi bi-broadcast"></i> Breaking
+                </div>
+                <!-- CSS Marquee Animation -->
+                <style>
+                .ticker-wrapper {
+                    flex-grow: 1;
+                    overflow: hidden;
+                    position: relative;
+                }
 
-                        .ticker-content {
-                            display: inline-block;
-                            white-space: nowrap;
-                            animation: ticker 30s linear infinite;
-                        }
+                .ticker-content {
+                    display: inline-block;
+                    white-space: nowrap;
+                    animation: ticker 30s linear infinite;
+                }
 
-                        .ticker-content:hover {
-                            animation-play-state: paused;
-                        }
+                .ticker-content:hover {
+                    animation-play-state: paused;
+                }
 
-                        @keyframes ticker {
-                            0% {
-                                transform: translateX(100%);
-                            }
+                @keyframes ticker {
+                    0% {
+                        transform: translateX(100%);
+                    }
 
-                            100% {
-                                transform: translateX(-100%);
-                            }
-                        }
-                    </style>
-                    <div class="ticker-wrapper ps-2 border-start border-light border-opacity-50">
-                        <div class="ticker-content">
-                            <?php foreach ($breaking_news as $news): ?>
-                                <a href="<?= BASE_URL ?>/article.php?slug=<?= e($news['slug']) ?>"
-                                    class="text-white text-decoration-none me-5 fw-medium">
-                                    <span class="me-2">&bull;</span>
-                                    <?= e($news['title']) ?>
-                                </a>
-                            <?php endforeach; ?>
-                        </div>
+                    100% {
+                        transform: translateX(-100%);
+                    }
+                }
+                </style>
+                <div class="ticker-wrapper ps-2 border-start border-light border-opacity-50">
+                    <div class="ticker-content">
+                        <?php foreach ($breaking_news as $news): ?>
+                        <a href="<?= BASE_URL ?>/article.php?slug=<?= e($news['slug']) ?>"
+                            class="text-white text-decoration-none me-5 fw-medium">
+                            <span class="me-2">&bull;</span>
+                            <?= e($news['title']) ?>
+                        </a>
+                        <?php endforeach; ?>
                     </div>
                 </div>
             </div>
+        </div>
         <?php endif; ?>
 
         <!-- Sticky Filter Bar -->
-        <div class="sticky-filters py-3 mb-4 sticky-top border-bottom"
+        <div class="sticky-filters py-3 mb-4  border-bottom"
             style="top: 76px; z-index: 1010; background: var(--glass-bg); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);">
             <div class="container">
                 <div class="d-flex flex-wrap gap-2 pb-2" style="scrollbar-width: thin; overflow: visible;">
@@ -367,37 +367,37 @@ $breaking_news = $db->query("SELECT title,slug,publish_at FROM articles WHERE st
                         class="filter-btn text-decoration-none text-nowrap <?= $category_slug === 'all' ? 'active' : '' ?>">All
                         News</a>
                     <?php foreach ($category_tree as $parent): ?>
-                        <?php if (!empty($parent['children'])): ?>
-                            <div class="dropdown">
-                                <a href="#"
-                                    class="filter-btn text-decoration-none text-nowrap <?= $category_slug === $parent['slug'] ? 'active' : '' ?>"
-                                    data-bs-toggle="dropdown" aria-expanded="false">
-                                    <?= e($parent['name']) ?>
+                    <?php if (!empty($parent['children'])): ?>
+                    <div class="dropdown">
+                        <a href="#"
+                            class="filter-btn text-decoration-none text-nowrap <?= $category_slug === $parent['slug'] ? 'active' : '' ?>"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            <?= e($parent['name']) ?>
+                        </a>
+                        <ul class="dropdown-menu shadow border-0" style="border-radius: 12px; z-index: 1050;">
+                            <li>
+                                <a class="dropdown-item fw-bold text-primary bg-primary bg-opacity-10 rounded mx-2 mb-1 py-2 d-flex justify-content-between align-items-center"
+                                    style="width: calc(100% - 1rem);"
+                                    href="?category=<?= $parent['slug'] ?><?= $search_query ? '&q=' . urlencode($search_query) : '' ?>">
+                                    <span><?= e($parent['name']) ?></span>
+                                    <i class="bi bi-arrow-right-circle-fill"></i>
                                 </a>
-                                <ul class="dropdown-menu shadow border-0" style="border-radius: 12px; z-index: 1050;">
-                                    <li>
-                                        <a class="dropdown-item fw-bold text-primary bg-primary bg-opacity-10 rounded mx-2 mb-1 py-2 d-flex justify-content-between align-items-center"
-                                            style="width: calc(100% - 1rem);"
-                                            href="?category=<?= $parent['slug'] ?><?= $search_query ? '&q=' . urlencode($search_query) : '' ?>">
-                                            <span><?= e($parent['name']) ?></span>
-                                            <i class="bi bi-arrow-right-circle-fill"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <hr class="dropdown-divider">
-                                        <?php foreach ($parent['children'] as $child): ?>
-                                        <li><a class="dropdown-item"
-                                                href="?category=<?= $child['slug'] ?><?= $search_query ? '&q=' . urlencode($search_query) : '' ?>"><?= e($child['name']) ?></a>
-                                        </li>
-                                    <?php endforeach; ?>
-                                </ul>
-                            </div>
-                        <?php else: ?>
-                            <a href="?category=<?= $parent['slug'] ?><?= $search_query ? '&q=' . urlencode($search_query) : '' ?>"
-                                class="filter-btn text-decoration-none text-nowrap <?= $category_slug === $parent['slug'] ? 'active' : '' ?>">
-                                <?= e($parent['name']) ?>
-                            </a>
-                        <?php endif; ?>
+                            </li>
+                            <li>
+                                <hr class="dropdown-divider">
+                                <?php foreach ($parent['children'] as $child): ?>
+                            <li><a class="dropdown-item"
+                                    href="?category=<?= $child['slug'] ?><?= $search_query ? '&q=' . urlencode($search_query) : '' ?>"><?= e($child['name']) ?></a>
+                            </li>
+                            <?php endforeach; ?>
+                        </ul>
+                    </div>
+                    <?php else: ?>
+                    <a href="?category=<?= $parent['slug'] ?><?= $search_query ? '&q=' . urlencode($search_query) : '' ?>"
+                        class="filter-btn text-decoration-none text-nowrap <?= $category_slug === $parent['slug'] ? 'active' : '' ?>">
+                        <?= e($parent['name']) ?>
+                    </a>
+                    <?php endif; ?>
                     <?php endforeach; ?>
                 </div>
             </div>
@@ -405,26 +405,26 @@ $breaking_news = $db->query("SELECT title,slug,publish_at FROM articles WHERE st
 
         <div class="container mb-4">
             <?php if ($search_query): ?>
-                <div
-                    class="d-flex align-items-center justify-content-between bg-white bg-opacity-50 backdrop-blur rounded-4 p-3 border shadow-sm">
-                    <div class="d-flex align-items-center">
-                        <div class="bg-primary bg-opacity-10 text-primary p-2 rounded-3 me-3">
-                            <i class="bi bi-search fs-5"></i>
-                        </div>
-                        <div>
-                            <p class="text-muted small mb-0">Search Results for</p>
-                            <h5 class="mb-0 fw-bold">"<?= e($search_query) ?>"</h5>
-                        </div>
+            <div
+                class="d-flex align-items-center justify-content-between bg-white bg-opacity-50 backdrop-blur rounded-4 p-3 border shadow-sm">
+                <div class="d-flex align-items-center">
+                    <div class="bg-primary bg-opacity-10 text-primary p-2 rounded-3 me-3">
+                        <i class="bi bi-search fs-5"></i>
                     </div>
-                    <div class="text-end">
-                        <span class="badge bg-dark rounded-pill px-3 py-2 mb-1"><?= $total_items ?> found</span>
-                        <br>
-                        <a href="?category=<?= e($category_slug) ?>"
-                            class="text-muted small text-decoration-none hover-primary">
-                            <i class="bi bi-x-circle me-1"></i> Clear search
-                        </a>
+                    <div>
+                        <p class="text-muted small mb-0">Search Results for</p>
+                        <h5 class="mb-0 fw-bold">"<?= e($search_query) ?>"</h5>
                     </div>
                 </div>
+                <div class="text-end">
+                    <span class="badge bg-dark rounded-pill px-3 py-2 mb-1"><?= $total_items ?> found</span>
+                    <br>
+                    <a href="?category=<?= e($category_slug) ?>"
+                        class="text-muted small text-decoration-none hover-primary">
+                        <i class="bi bi-x-circle me-1"></i> Clear search
+                    </a>
+                </div>
+            </div>
             <?php endif; ?>
         </div>
 
@@ -449,75 +449,75 @@ $breaking_news = $db->query("SELECT title,slug,publish_at FROM articles WHERE st
                     <!-- News Feed Grid -->
                     <div class="row g-4 align-items-stretch mb-4" id="news-grid">
                         <?php foreach ($articles as $article): ?>
-                            <div class="col-md-6 col-sm-12">
-                                <a href="<?= BASE_URL ?>/article.php?slug=<?= e($article['slug']) ?>"
-                                    class="news-card grid-card h-100 d-flex flex-column">
-                                    <?php if ($article['filename']): ?>
-                                        <div class="card-img-wrapper" style="height: 220px; overflow: hidden;">
-                                            <img src="<?= BASE_URL ?>/uploads/<?= e($article['folder']) ?>/<?= e($article['filename']) ?>"
-                                                class="card-img-top w-100 h-100 object-fit-cover" loading="lazy"
-                                                alt="<?= e($article['title']) ?>">
-                                        </div>
-                                    <?php endif; ?>
-                                    <div class="news-card-body p-4 d-flex flex-column flex-grow-1">
-                                        <div class="mb-3 d-flex flex-wrap gap-2">
-                                            <span class="badge bg-primary text-uppercase">
-                                                <?= e($article['category_name']) ?>
-                                            </span>
-                                            <span class="badge bg-dark"><i class="bi bi-clock"></i> 60 sec read</span>
-                                            <span class="badge bg-light text-dark border"><i class="bi bi-eye"></i>
-                                                <?= number_format($article['total_views'] ?: 0) ?>
-                                            </span>
-                                        </div>
-                                        <h4 class="mb-2 fw-bold headline" style="letter-spacing: -0.5px; line-height: 1.3;">
-                                            <?= e($article['title']) ?>
-                                        </h4>
-                                        <p class="text-muted mb-4 small flex-grow-1">
-                                            <?= e(mb_strimwidth($article['summary'], 0, 110, '...')) ?>
-                                        </p>
-
-                                        <div class="mt-auto px-4 pb-4">
-                                            <button class="btn btn-dark w-100 btn-sm rounded-3 py-2 fw-bold"
-                                                style="border: none;">
-                                                Read in 60 Seconds
-                                            </button>
-                                        </div>
+                        <div class="col-md-6 col-sm-12">
+                            <a href="<?= BASE_URL ?>/article.php?slug=<?= e($article['slug']) ?>"
+                                class="news-card grid-card h-100 d-flex flex-column">
+                                <?php if ($article['filename']): ?>
+                                <div class="card-img-wrapper" style="height: 220px; overflow: hidden;">
+                                    <img src="<?= BASE_URL ?>/uploads/<?= e($article['folder']) ?>/<?= e($article['filename']) ?>"
+                                        class="card-img-top w-100 h-100 object-fit-cover" loading="lazy"
+                                        alt="<?= e($article['title']) ?>">
+                                </div>
+                                <?php endif; ?>
+                                <div class="news-card-body p-4 d-flex flex-column flex-grow-1">
+                                    <div class="mb-3 d-flex flex-wrap gap-2">
+                                        <span class="badge bg-primary text-uppercase">
+                                            <?= e($article['category_name']) ?>
+                                        </span>
+                                        <span class="badge bg-dark"><i class="bi bi-clock"></i> 60 sec read</span>
+                                        <span class="badge bg-light text-dark border"><i class="bi bi-eye"></i>
+                                            <?= number_format($article['total_views'] ?: 0) ?>
+                                        </span>
                                     </div>
-                                </a>
-                            </div>
+                                    <h4 class="mb-2 fw-bold headline" style="letter-spacing: -0.5px; line-height: 1.3;">
+                                        <?= e($article['title']) ?>
+                                    </h4>
+                                    <p class="text-muted mb-4 small flex-grow-1">
+                                        <?= e(mb_strimwidth($article['summary'], 0, 110, '...')) ?>
+                                    </p>
+
+                                    <div class="mt-auto px-4 pb-4">
+                                        <button class="btn btn-dark w-100 btn-sm rounded-3 py-2 fw-bold"
+                                            style="border: none;">
+                                            Read in 60 Seconds
+                                        </button>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
                         <?php endforeach; ?>
 
                         <?php if (empty($articles) && !$top_story): ?>
-                            <div class="col-12 py-5">
-                                <div class="glass-panel text-center py-5 shadow-sm rounded-4">
-                                    <div
-                                        class="bg-primary bg-opacity-10 text-primary p-4 rounded-circle d-inline-flex mb-4">
-                                        <i class="bi bi-search display-5"></i>
-                                    </div>
-                                    <h3 class="fw-bold">No results found</h3>
-                                    <p class="text-muted mx-auto" style="max-width: 400px;">We couldn't find any articles
-                                        matching your current filters or search query. Try broadening your terms or checking
-                                        different categories.</p>
-                                    <a href="?category=all"
-                                        class="btn btn-outline-primary rounded-pill px-5 mt-3 fw-bold">Reset Filters</a>
+                        <div class="col-12 py-5">
+                            <div class="glass-panel text-center py-5 shadow-sm rounded-4">
+                                <div
+                                    class="bg-primary bg-opacity-10 text-primary p-4 rounded-circle d-inline-flex mb-4">
+                                    <i class="bi bi-search display-5"></i>
                                 </div>
+                                <h3 class="fw-bold">No results found</h3>
+                                <p class="text-muted mx-auto" style="max-width: 400px;">We couldn't find any articles
+                                    matching your current filters or search query. Try broadening your terms or checking
+                                    different categories.</p>
+                                <a href="?category=all"
+                                    class="btn btn-outline-primary rounded-pill px-5 mt-3 fw-bold">Reset Filters</a>
                             </div>
+                        </div>
                         <?php endif; ?>
                     </div>
 
 
                     <?php if (!empty($articles) && $total_pages > 1): ?>
-                        <nav aria-label="Page navigation" class="mt-5 mb-5 d-flex justify-content-center">
-                            <ul class="pagination-premium">
-                                <li class="page-item-premium <?= $page <= 1 ? 'disabled' : '' ?>">
-                                    <a class="page-link-premium"
-                                        href="?category=<?= urlencode($category_slug) ?>&page=<?= $page - 1 ?><?= $search_query ? '&q=' . urlencode($search_query) : '' ?>"
-                                        aria-label="Previous">
-                                        <i class="bi bi-chevron-left"></i>
-                                    </a>
-                                </li>
+                    <nav aria-label="Page navigation" class="mt-5 mb-5 d-flex justify-content-center">
+                        <ul class="pagination-premium">
+                            <li class="page-item-premium <?= $page <= 1 ? 'disabled' : '' ?>">
+                                <a class="page-link-premium"
+                                    href="?category=<?= urlencode($category_slug) ?>&page=<?= $page - 1 ?><?= $search_query ? '&q=' . urlencode($search_query) : '' ?>"
+                                    aria-label="Previous">
+                                    <i class="bi bi-chevron-left"></i>
+                                </a>
+                            </li>
 
-                                <?php
+                            <?php
                                 $start_page = max(1, $page - 2);
                                 $end_page = min($total_pages, $page + 2);
 
@@ -530,13 +530,13 @@ $breaking_news = $db->query("SELECT title,slug,publish_at FROM articles WHERE st
 
                                 for ($i = $start_page; $i <= $end_page; $i++):
                                     ?>
-                                    <li class="page-item-premium <?= $i == $page ? 'active' : '' ?>">
-                                        <a class="page-link-premium"
-                                            href="?category=<?= urlencode($category_slug) ?>&page=<?= $i ?><?= $search_query ? '&q=' . urlencode($search_query) : '' ?>">
-                                            <?= $i ?>
-                                        </a>
-                                    </li>
-                                    <?php
+                            <li class="page-item-premium <?= $i == $page ? 'active' : '' ?>">
+                                <a class="page-link-premium"
+                                    href="?category=<?= urlencode($category_slug) ?>&page=<?= $i ?><?= $search_query ? '&q=' . urlencode($search_query) : '' ?>">
+                                    <?= $i ?>
+                                </a>
+                            </li>
+                            <?php
                                 endfor;
 
                                 if ($end_page < $total_pages) {
@@ -547,15 +547,15 @@ $breaking_news = $db->query("SELECT title,slug,publish_at FROM articles WHERE st
                                 }
                                 ?>
 
-                                <li class="page-item-premium <?= $page >= $total_pages ? 'disabled' : '' ?>">
-                                    <a class="page-link-premium"
-                                        href="?category=<?= urlencode($category_slug) ?>&page=<?= $page + 1 ?><?= $search_query ? '&q=' . urlencode($search_query) : '' ?>"
-                                        aria-label="Next">
-                                        <i class="bi bi-chevron-right"></i>
-                                    </a>
-                                </li>
-                            </ul>
-                        </nav>
+                            <li class="page-item-premium <?= $page >= $total_pages ? 'disabled' : '' ?>">
+                                <a class="page-link-premium"
+                                    href="?category=<?= urlencode($category_slug) ?>&page=<?= $page + 1 ?><?= $search_query ? '&q=' . urlencode($search_query) : '' ?>"
+                                    aria-label="Next">
+                                    <i class="bi bi-chevron-right"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
                     <?php endif; ?>
 
                 </div>
@@ -566,69 +566,69 @@ $breaking_news = $db->query("SELECT title,slug,publish_at FROM articles WHERE st
                     <!-- Most Read Sidebar -->
                     <div class="position-sticky" style="top: 130px; z-index: 5;">
                         <style>
-                            .sidebar-glass-card {
-                                background: var(--glass-bg);
-                                backdrop-filter: blur(10px);
-                                -webkit-backdrop-filter: blur(10px);
-                                border: 1px solid var(--glass-border);
-                                border-radius: var(--radius-card);
-                                overflow: hidden;
-                                margin-bottom: 2rem;
-                                box-shadow: var(--shadow-soft);
-                            }
+                        .sidebar-glass-card {
+                            background: var(--glass-bg);
+                            backdrop-filter: blur(10px);
+                            -webkit-backdrop-filter: blur(10px);
+                            border: 1px solid var(--glass-border);
+                            border-radius: var(--radius-card);
+                            overflow: hidden;
+                            margin-bottom: 2rem;
+                            box-shadow: var(--shadow-soft);
+                        }
 
-                            /* Mixture Card Style */
-                            .mixture-card .card-header-premium {
-                                background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
-                                color: white !important;
-                                padding: 1.5rem 2rem;
-                                border-bottom: none;
-                                position: relative;
-                                overflow: hidden;
-                            }
+                        /* Mixture Card Style */
+                        .mixture-card .card-header-premium {
+                            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
+                            color: white !important;
+                            padding: 1.5rem 2rem;
+                            border-bottom: none;
+                            position: relative;
+                            overflow: hidden;
+                        }
 
-                            .mixture-card .card-header-premium::after {
-                                content: '';
-                                position: absolute;
-                                top: 0;
-                                right: 0;
-                                width: 100px;
-                                height: 100px;
-                                background: radial-gradient(circle, rgba(99, 102, 241, 0.4) 0%, transparent 70%);
-                                transform: translate(30%, -30%);
-                            }
+                        .mixture-card .card-header-premium::after {
+                            content: '';
+                            position: absolute;
+                            top: 0;
+                            right: 0;
+                            width: 100px;
+                            height: 100px;
+                            background: radial-gradient(circle, rgba(99, 102, 241, 0.4) 0%, transparent 70%);
+                            transform: translate(30%, -30%);
+                        }
 
-                            .trending-item {
-                                transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
-                                border-left: 4px solid transparent !important;
-                                margin-bottom: 2px;
-                            }
+                        .trending-item {
+                            transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+                            border-left: 4px solid transparent !important;
+                            margin-bottom: 2px;
+                        }
 
-                            .trending-item:hover {
-                                background: rgba(99, 102, 241, 0.08) !important;
-                                border-left-color: var(--primary) !important;
-                                transform: scale(1.02);
-                                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-                                z-index: 10;
-                            }
+                        .trending-item:hover {
+                            background: rgba(99, 102, 241, 0.08) !important;
+                            border-left-color: var(--primary) !important;
+                            transform: scale(1.02);
+                            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+                            z-index: 10;
+                        }
 
-                            .trending-item:hover h6 {
-                                color: var(--primary) !important;
-                            }
+                        .trending-item:hover h6 {
+                            color: var(--primary) !important;
+                        }
 
-                            .rank-number {
-                                font-family: var(--font-display);
-                                font-size: 2rem;
-                                font-weight: 800;
-                                color: var(--primary);
-                                opacity: 0.2;
-                                transition: all 0.3s ease;
-                            }
+                        .rank-number {
+                            font-family: var(--font-display);
+                            font-size: 2rem;
+                            font-weight: 800;
+                            color: var(--primary);
+                            opacity: 0.2;
+                            transition: all 0.3s ease;
+                        }
 
-                            .trending-item:hover .rank-number {
-                                opacity: 1;
-                                transform: scale(1.2);
-                            }
+                        .trending-item:hover .rank-number {
+                            opacity: 1;
+                            transform: scale(1.2);
+                        }
                         </style>
 
                         <!-- Latest News Sidebar -->
@@ -642,33 +642,33 @@ $breaking_news = $db->query("SELECT title,slug,publish_at FROM articles WHERE st
                             </div>
                             <div class="list-group list-group-flush py-2 bg-transparent text-start">
                                 <?php foreach ($sidebar_latest as $latest): ?>
-                                    <a href="<?= BASE_URL ?>/article.php?slug=<?= e($latest['slug']) ?>"
-                                        class="list-group-item list-group-item-action border-0 py-3 px-4 d-flex align-items-center trending-item bg-transparent">
-                                        <div class="me-3">
-                                            <?php if ($latest['filename']): ?>
-                                                <img src="<?= BASE_URL ?>/uploads/<?= e($latest['folder']) ?>/<?= e($latest['filename']) ?>"
-                                                    class="rounded-3" style="width: 60px; height: 60px; object-fit: cover;"
-                                                    loading="lazy" alt="<?= e($latest['title']) ?>">
-                                            <?php else: ?>
-                                                <div class="bg-light rounded-3 d-flex align-items-center justify-content-center"
-                                                    style="width: 60px; height: 60px;">
-                                                    <i class="bi bi-image text-muted"></i>
-                                                </div>
-                                            <?php endif; ?>
+                                <a href="<?= BASE_URL ?>/article.php?slug=<?= e($latest['slug']) ?>"
+                                    class="list-group-item list-group-item-action border-0 py-3 px-4 d-flex align-items-center trending-item bg-transparent">
+                                    <div class="me-3">
+                                        <?php if ($latest['filename']): ?>
+                                        <img src="<?= BASE_URL ?>/uploads/<?= e($latest['folder']) ?>/<?= e($latest['filename']) ?>"
+                                            class="rounded-3" style="width: 60px; height: 60px; object-fit: cover;"
+                                            loading="lazy" alt="<?= e($latest['title']) ?>">
+                                        <?php else: ?>
+                                        <div class="bg-light rounded-3 d-flex align-items-center justify-content-center"
+                                            style="width: 60px; height: 60px;">
+                                            <i class="bi bi-image text-muted"></i>
                                         </div>
-                                        <div class="flex-grow-1">
-                                            <span class="text-uppercase fw-bold text-primary mb-1 d-block"
-                                                style="font-size: 0.65rem;">
-                                                <?= e($latest['category_name']) ?>
-                                            </span>
-                                            <h6 class="fw-bold mb-1 lh-sm text-dark" style="font-size: 0.9rem;">
-                                                <?= e($latest['title']) ?>
-                                            </h6>
-                                            <small class="text-muted" style="font-size: 0.7rem;">
-                                                <?= date('M j, Y', strtotime($latest['publish_at'])) ?>
-                                            </small>
-                                        </div>
-                                    </a>
+                                        <?php endif; ?>
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        <span class="text-uppercase fw-bold text-primary mb-1 d-block"
+                                            style="font-size: 0.65rem;">
+                                            <?= e($latest['category_name']) ?>
+                                        </span>
+                                        <h6 class="fw-bold mb-1 lh-sm text-dark" style="font-size: 0.9rem;">
+                                            <?= e($latest['title']) ?>
+                                        </h6>
+                                        <small class="text-muted" style="font-size: 0.7rem;">
+                                            <?= date('M j, Y', strtotime($latest['publish_at'])) ?>
+                                        </small>
+                                    </div>
+                                </a>
                                 <?php endforeach; ?>
                             </div>
                         </div>
@@ -685,32 +685,32 @@ $breaking_news = $db->query("SELECT title,slug,publish_at FROM articles WHERE st
                             </div>
                             <div class="list-group list-group-flush py-2 bg-transparent">
                                 <?php foreach ($trending as $index => $trend): ?>
-                                    <a href="<?= BASE_URL ?>/article.php?slug=<?= e($trend['slug']) ?>"
-                                        class="list-group-item list-group-item-action border-0 py-3 px-4 d-flex align-items-center trending-item bg-transparent">
-                                        <div class="me-3">
-                                            <span class="rank-number">
-                                                <?= $index + 1 ?>
-                                            </span>
-                                        </div>
-                                        <div class="flex-grow-1">
-                                            <div class="d-flex flex-column mb-1">
-                                                <small class="fw-bold text-uppercase pb-1"
-                                                    style="font-size: 0.7rem; color: var(--primary);">
-                                                    <?= e($trend['category_name']) ?>
+                                <a href="<?= BASE_URL ?>/article.php?slug=<?= e($trend['slug']) ?>"
+                                    class="list-group-item list-group-item-action border-0 py-3 px-4 d-flex align-items-center trending-item bg-transparent">
+                                    <div class="me-3">
+                                        <span class="rank-number">
+                                            <?= $index + 1 ?>
+                                        </span>
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        <div class="d-flex flex-column mb-1">
+                                            <small class="fw-bold text-uppercase pb-1"
+                                                style="font-size: 0.7rem; color: var(--primary);">
+                                                <?= e($trend['category_name']) ?>
+                                            </small>
+                                            <h6 class="fw-bold mb-1 lh-sm text-dark" style="font-size: 0.95rem;">
+                                                <?= e($trend['title']) ?>
+                                            </h6>
+                                            <div class="d-flex justify-content-between align-items-center mt-1">
+                                                <small class="text-muted d-flex align-items-center gap-1"
+                                                    style="font-size: 0.7rem;">
+                                                    <i class="bi bi-eye-fill"></i>
+                                                    <?= number_format($trend['total_views']) ?> reads
                                                 </small>
-                                                <h6 class="fw-bold mb-1 lh-sm text-dark" style="font-size: 0.95rem;">
-                                                    <?= e($trend['title']) ?>
-                                                </h6>
-                                                <div class="d-flex justify-content-between align-items-center mt-1">
-                                                    <small class="text-muted d-flex align-items-center gap-1"
-                                                        style="font-size: 0.7rem;">
-                                                        <i class="bi bi-eye-fill"></i>
-                                                        <?= number_format($trend['total_views']) ?> reads
-                                                    </small>
-                                                </div>
                                             </div>
                                         </div>
-                                    </a>
+                                    </div>
+                                </a>
                                 <?php endforeach; ?>
                             </div>
                         </div>
@@ -744,18 +744,21 @@ $breaking_news = $db->query("SELECT title,slug,publish_at FROM articles WHERE st
     <script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" async></script>
 
     <script>
-        // Back to Top Logic
-        const btt = document.getElementById('backToTop');
-        window.onscroll = function () {
-            if (document.body.scrollTop > 500 || document.documentElement.scrollTop > 500) {
-                btt.style.display = "block";
-            } else {
-                btt.style.display = "none";
-            }
-        };
-        btt.onclick = function () {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        };
+    // Back to Top Logic
+    const btt = document.getElementById('backToTop');
+    window.onscroll = function() {
+        if (document.body.scrollTop > 500 || document.documentElement.scrollTop > 500) {
+            btt.style.display = "block";
+        } else {
+            btt.style.display = "none";
+        }
+    };
+    btt.onclick = function() {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    };
     </script>
 </body>
 

@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     exit;
 }
 
-// Now include visual header after logic and potential redirects
+
 require_once __DIR__ . '/layout/header.php';
 ?>
 
@@ -113,7 +113,7 @@ require_once __DIR__ . '/layout/header.php';
             </div>
         </div>
 
-        <!-- Admin Panel Theme -->
+    
         <div class="col-md-6">
             <div class="card h-100">
                 <div class="card-header">
@@ -217,7 +217,7 @@ require_once __DIR__ . '/layout/header.php';
 </style>
 
 <script>
-    // Simple script to toggle visual active state immediately on click
+    // Simple script to toggle visual active state immediately on
     document.querySelectorAll('.theme-selector-card input').forEach(input => {
         input.addEventListener('change', function () {
             const name = this.getAttribute('name');

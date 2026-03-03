@@ -1,6 +1,8 @@
 <?php
 // config/config.php
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 // Environment & Paths
 // Dynamically detect the base URL to support both root (localhost:8000) and subdirectories (localhost/60secnews)

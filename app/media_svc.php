@@ -46,7 +46,12 @@ class MediaService
         $filepath = $folder_dir . $filename;
 
         // Compress and save
-        $saved = $this->compressImage($file['tmp_name'], $filepath, 80, $ext);
+        $saved = false;
+        if (extension_loaded('gd') && function_exists('imagecreatefromjpeg')) {
+            $saved = $this->compressImage($file['tmp_name'], $filepath, 80, $ext);
+        } else {
+            $saved = move_uploaded_file($file['tmp_name'], $filepath);
+        }
 
         if ($saved) {
             // Insert into DB

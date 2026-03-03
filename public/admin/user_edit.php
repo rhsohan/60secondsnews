@@ -1,7 +1,12 @@
 <?php
 // admin/user_edit.php
-require_once __DIR__ . '/layout/header.php';
+// Header moved below processing to prevent "headers already sent" error during redirect
+require_once __DIR__ . '/../../config/config.php';
+require_once __DIR__ . '/../../app/db.php';
+require_once __DIR__ . '/../../app/helpers.php';
+require_once __DIR__ . '/../../app/rbac.php';
 
+require_login();
 require_permission('manage_users');
 
 $db = DB::getInstance()->getConnection();
@@ -26,7 +31,7 @@ if ($user_id > 0) {
     }
 }
 
-$roles = $db->query("SELECT * FROM roles ORDER BY id ASC")->fetchAll();
+$roles = $db->query("SELECT * FROM roles WHERE LOWER(name) != 'media' ORDER BY id ASC")->fetchAll();
 $error = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -83,6 +88,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 ?>
 
+<?php require_once __DIR__ . '/layout/header.php'; ?>
+
 <div class="d-flex justify-content-between align-items-center mb-4">
     <h1 class="h3 mb-0 text-white">
         <?= $user_id ? 'Edit User' : 'Add New User' ?>
@@ -137,5 +144,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </div>
 
 <?php require_once __DIR__ . '/layout/footer.php'; ?>
-
-

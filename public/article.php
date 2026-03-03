@@ -353,22 +353,6 @@ $is_bookmarked = in_array('bookmark', $interactions);
                                     <span class="text-success"><i class="bi bi-shield-check"></i> FACT CHECKED</span>
                                 <?php endif; ?>
                             </div>
-
-                            <!-- Reading Utilities -->
-                            <div class="d-flex justify-content-center gap-2 mb-4">
-                                <button class="btn btn-sm btn-light border-0 rounded-pill px-3 shadow-none"
-                                    id="btn-font-dec" title="Decrease font size">
-                                    <i class="bi bi-type" style="font-size: 0.8rem;"></i>
-                                </button>
-                                <button class="btn btn-sm btn-light border-0 rounded-pill px-3 shadow-none"
-                                    id="btn-font-inc" title="Increase font size">
-                                    <i class="bi bi-type" style="font-size: 1.2rem;"></i>
-                                </button>
-                                <button class="btn btn-sm btn-light border-0 rounded-pill px-3 shadow-none ms-2"
-                                    id="btn-reading-mode" title="Toggle Focused Reading">
-                                    <i class="bi bi-eye-fill"></i> Optimized Reading
-                                </button>
-                            </div>
                         </header>
 
                         <?php if ($article['filename']): ?>
@@ -569,43 +553,6 @@ $is_bookmarked = in_array('bookmark', $interactions);
                 const progress = document.getElementById('reading-progress');
                 if (progress) progress.style.width = percent + '%';
             });
-
-            // Font Resizer
-            const articleBody = document.getElementById('article-body');
-            let currentSize = 1.15; // default rem (matches CSS article-text)
-
-            const incBtn = document.getElementById('btn-font-inc');
-            const decBtn = document.getElementById('btn-font-dec');
-
-            if (incBtn && articleBody) {
-                incBtn.addEventListener('click', () => {
-                    if (currentSize < 1.6) {
-                        currentSize += 0.1;
-                        articleBody.style.fontSize = currentSize + 'rem';
-                    }
-                });
-            }
-
-            if (decBtn && articleBody) {
-                decBtn.addEventListener('click', () => {
-                    if (currentSize > 0.9) {
-                        currentSize -= 0.1;
-                        articleBody.style.fontSize = currentSize + 'rem';
-                    }
-                });
-            }
-
-            // Reading Focus Mode
-            const readBtn = document.getElementById('btn-reading-mode');
-            if (readBtn) {
-                readBtn.addEventListener('click', () => {
-                    document.body.classList.toggle('reading-mode');
-                    const isMode = document.body.classList.contains('reading-mode');
-                    readBtn.innerHTML = isMode ?
-                        '<i class="bi bi-eye"></i> Standard View' :
-                        '<i class="bi bi-eye-fill"></i> Optimized Reading';
-                });
-            }
         });
     </script>
 </body>

@@ -17,10 +17,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
     if ($_POST['action'] === 'delete_user') {
         $user_id = (int) $_POST['user_id'];
         if ($user_id !== (int) $_SESSION['user_id'] && $user_id !== 1) {
+            // Reassign content to Superadmin to avoid FK constraints
+            $db->prepare("UPDATE articles SET author_id = 1 WHERE author_id = ?")->execute([$user_id]);
+            $db->prepare("UPDATE article_versions SET editor_id = 1 WHERE editor_id = ?")->execute([$user_id]);
+            $db->prepare("UPDATE media SET uploader_id = 1 WHERE uploader_id = ?")->execute([$user_id]);
+            $db->prepare("DELETE FROM audit_logs WHERE user_id = ?")->execute([$user_id]);
+
             $stmt = $db->prepare("DELETE FROM users WHERE id = ?");
             $stmt->execute([$user_id]);
             log_activity("Deleted user ID $user_id", 'users', $user_id);
-            set_flash_message('success', "User deleted successfully.");
+            set_flash_message('success', "User deleted successfully. Their content was reassigned to the Admin.");
         } else {
             set_flash_message('danger', "Cannot delete this user.");
         }

@@ -61,7 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         $title = trim($_POST['title']);
         $slug = empty($_POST['slug']) ? strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $title))) : trim($_POST['slug']);
-        $summary = trim($_POST['summary']); // The Who/What/Why
+        $summary = ''; // The Who/What/Why - Removed from form
         $category_id = (int) $_POST['category_id'];
         $featured_image_id = empty($_POST['existing_image_id']) ? null : (int) $_POST['existing_image_id'];
 
@@ -97,8 +97,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $is_pinned = isset($_POST['is_pinned']) ? 1 : 0;
         $fact_checked = isset($_POST['fact_checked']) ? 1 : 0;
 
-        if (empty($title) || empty($summary) || empty($content) || empty($category_id)) {
-            $error = "Title, full-idea summary, content, and category are required.";
+        if (empty($title) || empty($content) || empty($category_id)) {
+            $error = "Title, content, and category are required.";
         }
 
         if (!$error) {
@@ -188,8 +188,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
-    // Repopulate failed state
-    $article = array_merge($article, $_POST);
+    // Repopulate failed state removed 
 }
 
 require_once __DIR__ . '/layout/header.php';
@@ -237,12 +236,6 @@ require_once __DIR__ . '/layout/header.php';
                             headline.</small>
                     </div>
 
-                    <div class="mb-3">
-                        <label class="form-label text-muted fw-bold">Full-Idea Summary * (Appears on Card)</label>
-                        <textarea name="summary" id="summary" class="form-control bg-dark text-white border-secondary"
-                            rows="2" placeholder="One clear sentence explaining the whole story context..."
-                            required><?= e($article['summary']) ?></textarea>
-                    </div>
 
                     <div class="mb-3 mt-4">
                         <div class="d-flex justify-content-between">
@@ -363,7 +356,7 @@ require_once __DIR__ . '/layout/header.php';
                             <option value="">Select Category...</option>
                             <?php foreach ($categories as $cat): ?>
                                 <option value="<?= $cat['id'] ?>" <?= $article['category_id'] == $cat['id'] ? 'selected' : '' ?>>
-                                    <?= $cat['parent_id'] ? '&mdash; ' : '' ?><?= e($cat['name']) ?>
+                                    <?= $cat['parent_id'] ? '&mdash; ' : '' ?>     <?= e($cat['name']) ?>
                                 </option>
                             <?php endforeach; ?>
                         </select>
@@ -385,7 +378,8 @@ require_once __DIR__ . '/layout/header.php';
                         </div>
                         <input type="file" name="new_image" class="form-control bg-dark text-white border-secondary"
                             accept="image/jpeg,image/png,image/webp">
-                        <small class="text-muted d-block mt-1">Select an image from your device. Max 5MB (JPG, PNG, WEBP). Leave blank to keep current image.</small>
+                        <small class="text-muted d-block mt-1">Select an image from your device. Max 5MB (JPG, PNG,
+                            WEBP). Leave blank to keep current image.</small>
                     </div>
                 </div>
             </div>

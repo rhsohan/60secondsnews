@@ -26,9 +26,9 @@ $article = [
 $can_publish = has_permission('publish_article');
 
 if ($article_id > 0) {
-    $stmt = $db->prepare("SELECT * FROM articles WHERE id = ?");
-    $stmt->execute([$article_id]);
-    $article = $stmt->fetch();
+    $st = $db->prepare("SELECT * FROM articles WHERE id = ?");
+    $st->execute([$article_id]);
+    $article = $st->fetch();
 
     if (!$article) {
         set_flash_message('danger', 'Article not found.');
@@ -106,14 +106,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $db->beginTransaction();
 
                 if ($article_id > 0) {
-                    $stmt = $db->prepare("
+                    $st = $db->prepare("
                         UPDATE articles SET 
                             title=?, slug=?, summary=?, content=?, category_id=?,
                             featured_image_id=?, status=?, is_breaking=?, is_pinned=?,
                             fact_checked=?, publish_at=?
                         WHERE id=?
                     ");
-                    $stmt->execute([
+                    $st->execute([
                         $title,
                         $slug,
                         $summary,
@@ -140,14 +140,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     set_flash_message('success', 'Article updated.');
 
                 } else {
-                    $stmt = $db->prepare("
+                    $st = $db->prepare("
                         INSERT INTO articles (
                             title, slug, summary, content, author_id, category_id,
                             featured_image_id, status, is_breaking, is_pinned,
                             fact_checked, publish_at
                         ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                     ");
-                    $stmt->execute([
+                    $st->execute([
                         $title,
                         $slug,
                         $summary,

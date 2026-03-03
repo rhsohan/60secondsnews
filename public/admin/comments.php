@@ -11,16 +11,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
     verify_csrf_token($_POST['csrf_token'] ?? '');
 
     $comment_id = (int) $_POST['comment_id'];
-    $new_status = $_POST['action']; // 'approved', 'rejected', or 'delete'
+    $new_status = $_POST['action']; 
 
     if (in_array($new_status, ['approved', 'rejected'])) {
-        $stmt = $db->prepare("UPDATE comments SET status = ? WHERE id = ?");
-        $stmt->execute([$new_status, $comment_id]);
+        $st = $db->prepare("UPDATE comments SET status = ? WHERE id = ?");
+        $st->execute([$new_status, $comment_id]);
         set_flash_message('success', "Comment marked as $new_status.");
         log_activity("Moderated comment ID $comment_id to $new_status", 'comments');
     } elseif ($new_status === 'delete') {
-        $stmt = $db->prepare("DELETE FROM comments WHERE id = ?");
-        $stmt->execute([$comment_id]);
+        $st = $db->prepare("DELETE FROM comments WHERE id = ?");
+        $st->execute([$comment_id]);
         set_flash_message('warning', "Comment deleted.");
         log_activity("Deleted comment ID $comment_id", 'comments');
     }
@@ -29,14 +29,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
     exit;
 }
 
-$sql = "SELECT c.id, c.author_name, c.user_ip, c.content, c.status, c.created_at, a.title as article_title, a.slug as article_slug 
+$s = "SELECT c.id, c.author_name, c.user_ip, c.content, c.status, c.created_at, a.title as article_title, a.slug as article_slug 
         FROM comments c 
         JOIN articles a ON c.article_id = a.id 
         WHERE c.status = ? 
         ORDER BY c.created_at DESC";
-$stmt = $db->prepare($sql);
-$stmt->execute([$status_filter]);
-$comments = $stmt->fetchAll();
+$st = $db->prepare($s);
+$st->execute([$status_filter]);
+$comments = $st->fetchAll();
 
 ?>
 
@@ -75,60 +75,60 @@ $comments = $stmt->fetchAll();
                 </thead>
                 <tbody>
                     <?php foreach ($comments as $c): ?>
-                        <tr>
-                            <td>
-                                <div class="text-nowrap fw-bold">
-                                    <?= e($c['author_name'] ?: 'Anonymous') ?>
-                                </div>
-                                <div class="text-nowrap small text-muted">
-                                    <?= date('M j, Y H:i', strtotime($c['created_at'])) ?>
-                                </div>
-                                <small class="text-muted"><i class="bi bi-hdd-network"></i>
-                                    <?= e($c['user_ip']) ?>
-                                </small>
-                            </td>
-                            <td>
-                                <div style="max-height: 80px; overflow-y: auto;" class="pe-2 text-wrap">
-                                    <?= nl2br(e($c['content'])) ?>
-                                </div>
-                            </td>
-                            <td>
-                                <a href="<?= BASE_URL ?>/article.php?slug=<?= e($c['article_slug']) ?>" target="_blank"
-                                    class="text-info text-decoration-none small text-truncate d-block"
-                                    style="max-width:250px;">
-                                    <?= e($c['article_title']) ?> <i class="bi bi-box-arrow-up-right"></i>
-                                </a>
-                            </td>
-                            <td class="text-end text-nowrap">
-                                <form method="POST" class="d-inline">
-                                    <?= csrf_field() ?>
-                                    <input type="hidden" name="comment_id" value="<?= $c['id'] ?>">
+                    <tr>
+                        <td>
+                            <div class="text-nowrap fw-bold">
+                                <?= e($c['author_name'] ?: 'Anonymous') ?>
+                            </div>
+                            <div class="text-nowrap small text-muted">
+                                <?= date('M j, Y H:i', strtotime($c['created_at'])) ?>
+                            </div>
+                            <small class="text-muted"><i class="bi bi-hdd-network"></i>
+                                <?= e($c['user_ip']) ?>
+                            </small>
+                        </td>
+                        <td>
+                            <div style="max-height: 80px; overflow-y: auto;" class="pe-2 text-wrap">
+                                <?= nl2br(e($c['content'])) ?>
+                            </div>
+                        </td>
+                        <td>
+                            <a href="<?= BASE_URL ?>/article.php?slug=<?= e($c['article_slug']) ?>" target="_blank"
+                                class="text-info text-decoration-none small text-truncate d-block"
+                                style="max-width:250px;">
+                                <?= e($c['article_title']) ?> <i class="bi bi-box-arrow-up-right"></i>
+                            </a>
+                        </td>
+                        <td class="text-end text-nowrap">
+                            <form method="POST" class="d-inline">
+                                <?= csrf_field() ?>
+                                <input type="hidden" name="comment_id" value="<?= $c['id'] ?>">
 
-                                    <?php if ($c['status'] !== 'approved'): ?>
-                                        <button type="submit" name="action" value="approved"
-                                            class="btn btn-sm btn-outline-success" title="Approve"><i
-                                                class="bi bi-check-lg"></i></button>
-                                    <?php endif; ?>
+                                <?php if ($c['status'] !== 'approved'): ?>
+                                <button type="submit" name="action" value="approved"
+                                    class="btn btn-sm btn-outline-success" title="Approve"><i
+                                        class="bi bi-check-lg"></i></button>
+                                <?php endif; ?>
 
-                                    <?php if ($c['status'] !== 'rejected'): ?>
-                                        <button type="submit" name="action" value="rejected"
-                                            class="btn btn-sm btn-outline-warning" title="Reject"><i
-                                                class="bi bi-x-lg"></i></button>
-                                    <?php endif; ?>
+                                <?php if ($c['status'] !== 'rejected'): ?>
+                                <button type="submit" name="action" value="rejected"
+                                    class="btn btn-sm btn-outline-warning" title="Reject"><i
+                                        class="bi bi-x-lg"></i></button>
+                                <?php endif; ?>
 
-                                    <button type="submit" name="action" value="delete"
-                                        class="btn btn-sm btn-outline-danger ms-1" title="Delete Permanently"
-                                        onclick="return confirm('Delete this comment permanently?');"><i
-                                            class="bi bi-trash"></i></button>
-                                </form>
-                            </td>
-                        </tr>
+                                <button type="submit" name="action" value="delete"
+                                    class="btn btn-sm btn-outline-danger ms-1" title="Delete Permanently"
+                                    onclick="return confirm('Delete this comment permanently?');"><i
+                                        class="bi bi-trash"></i></button>
+                            </form>
+                        </td>
+                    </tr>
                     <?php endforeach; ?>
 
                     <?php if (empty($comments)): ?>
-                        <tr>
-                            <td colspan="4" class="text-center py-4 text-muted">No comments found in this queue.</td>
-                        </tr>
+                    <tr>
+                        <td colspan="4" class="text-center py-4 text-muted">No comments found in this queue.</td>
+                    </tr>
                     <?php endif; ?>
                 </tbody>
             </table>
@@ -137,5 +137,3 @@ $comments = $stmt->fetchAll();
 </div>
 
 <?php require_once __DIR__ . '/layout/footer.php'; ?>
-
-

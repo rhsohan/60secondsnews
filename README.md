@@ -60,7 +60,7 @@ MySQL Database – For storing news articles, user data, comments, and other con
 | Role | Username | Password | Access Level |
 | :--- | :--- | :--- | :--- |
 | **Super Admin** | `sohan` | `1234567890` | Full System Control |
-| **editor** | `editor` | `1234567890` | Content Creation Only |
+| **editor** | `editor` | `1234567890` | Content edit Only |
 | **Lead Publisher** | `publisher` | `1234567890` | Final Editorial Review |
 
 ---

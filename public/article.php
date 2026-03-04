@@ -109,8 +109,8 @@ $is_bookmarked = in_array('bookmark', $interactions);
     <meta property="og:title" content="<?= e($article['title']) ?>">
     <meta property="og:description" content="<?= e($article['summary']) ?>">
     <?php if ($article['filename']): ?>
-        <meta property="og:image"
-            content="<?= BASE_URL ?>/uploads/<?= e($article['folder']) ?>/<?= e($article['filename']) ?>">
+    <meta property="og:image"
+        content="<?= BASE_URL ?>/uploads/<?= e($article['folder']) ?>/<?= e($article['filename']) ?>">
     <?php endif; ?>
     <meta property="og:type" content="article">
 
@@ -121,14 +121,14 @@ $is_bookmarked = in_array('bookmark', $interactions);
     <!-- Schema.org Markup -->
     <script type="application/ld+json">
     {
-      "@context": "https://schema.org",
-      "@type": "NewsArticle",
-      "headline": "<?= e($article['title']) ?>",
-      "datePublished": "<?= date('c', strtotime($article['publish_at'])) ?>",
-      "author": [{
-          "@type": "Person",
-          "name": "<?= e($article['author_name']) ?>"
-      }]
+        "@context": "https://schema.org",
+        "@type": "NewsArticle",
+        "headline": "<?= e($article['title']) ?>",
+        "datePublished": "<?= date('c', strtotime($article['publish_at'])) ?>",
+        "author": [{
+            "@type": "Person",
+            "name": "<?= e($article['author_name']) ?>"
+        }]
     }
     </script>
 </head>
@@ -152,10 +152,10 @@ $is_bookmarked = in_array('bookmark', $interactions);
                             data-bs-toggle="dropdown" aria-expanded="false" style="font-size: 1.2rem;">
                             <i class="bi bi-bell-fill"></i>
                             <?php if (!empty($breaking_news)): ?>
-                                <span
-                                    class="position-absolute top-10 start-100 translate-middle p-1 bg-danger border border-light rounded-circle">
-                                    <span class="visually-hidden">New breaking news</span>
-                                </span>
+                            <span
+                                class="position-absolute top-10 start-100 translate-middle p-1 bg-danger border border-light rounded-circle">
+                                <span class="visually-hidden">New breaking news</span>
+                            </span>
                             <?php endif; ?>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end shadow border-0 mt-2"
@@ -166,22 +166,22 @@ $is_bookmarked = in_array('bookmark', $interactions);
                                     Breaking News Alerts</h6>
                             </li>
                             <?php if (!empty($breaking_news)): ?>
-                                <?php foreach ($breaking_news as $news): ?>
-                                    <li>
-                                        <a class="dropdown-item py-2 text-wrap border-bottom"
-                                            href="<?= BASE_URL ?>/article.php?slug=<?= e($news['slug']) ?>">
-                                            <div class="fw-bold mb-1 lh-sm" style="font-size: 0.9rem;">
-                                                <?= e($news['title']) ?>
-                                            </div>
-                                            <small class="text-muted"><i class="bi bi-clock"></i>
-                                                <?= time_ago($news['publish_at']) ?>
-                                            </small>
-                                        </a>
-                                    </li>
-                                <?php endforeach; ?>
+                            <?php foreach ($breaking_news as $news): ?>
+                            <li>
+                                <a class="dropdown-item py-2 text-wrap border-bottom"
+                                    href="<?= BASE_URL ?>/article.php?slug=<?= e($news['slug']) ?>">
+                                    <div class="fw-bold mb-1 lh-sm" style="font-size: 0.9rem;">
+                                        <?= e($news['title']) ?>
+                                    </div>
+                                    <small class="text-muted"><i class="bi bi-clock"></i>
+                                        <?= time_ago($news['publish_at']) ?>
+                                    </small>
+                                </a>
+                            </li>
+                            <?php endforeach; ?>
                             <?php else: ?>
-                                <li><span class="dropdown-item-text text-muted text-center py-3">No breaking news right
-                                        now.</span></li>
+                            <li><span class="dropdown-item-text text-muted text-center py-3">No breaking news right
+                                    now.</span></li>
                             <?php endif; ?>
                         </ul>
                     </div>
@@ -193,119 +193,119 @@ $is_bookmarked = in_array('bookmark', $interactions);
                     </a>
 
                     <?php if (isset($_SESSION['user_id'])): ?>
-                        <div class="dropdown">
-                            <button class="btn btn-dark btn-sm rounded-pill px-3 dropdown-toggle shadow-sm" type="button"
-                                data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="bi bi-person-circle me-1"></i> <?= e($_SESSION['username'] ?? 'Account') ?>
-                            </button>
-                            <ul class="dropdown-menu dropdown-menu-end shadow border-0 mt-2">
-                                <li><a class="dropdown-item fw-bold" href="<?= ADMIN_URL ?>/index.php"><i
-                                            class="bi bi-speedometer2 me-2"></i> Dashboard</a></li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <li><a class="dropdown-item text-danger fw-bold" href="<?= AUTH_URL ?>/logout.php"><i
-                                            class="bi bi-box-arrow-right me-2"></i> Logout</a></li>
-                            </ul>
-                        </div>
+                    <div class="dropdown">
+                        <button class="btn btn-dark btn-sm rounded-pill px-3 dropdown-toggle shadow-sm" type="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-person-circle me-1"></i> <?= e($_SESSION['username'] ?? 'Account') ?>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end shadow border-0 mt-2">
+                            <li><a class="dropdown-item fw-bold" href="<?= ADMIN_URL ?>/index.php"><i
+                                        class="bi bi-speedometer2 me-2"></i> Dashboard</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item text-danger fw-bold" href="<?= AUTH_URL ?>/logout.php"><i
+                                        class="bi bi-box-arrow-right me-2"></i> Logout</a></li>
+                        </ul>
+                    </div>
                     <?php else: ?>
-                        <a href="<?= AUTH_URL ?>/login.php"
-                            class="btn btn-outline-dark btn-sm rounded-pill fw-bold px-3 shadow-sm">Login</a>
+                    <a href="<?= AUTH_URL ?>/login.php"
+                        class="btn btn-outline-dark btn-sm rounded-pill fw-bold px-3 shadow-sm">Login</a>
                     <?php endif; ?>
                 </div>
             </div>
         </nav>
 
         <?php if (!empty($breaking_news)): ?>
-            <!-- Breaking News Ticker -->
-            <div class="breaking-ticker py-2 shadow-sm" style="overflow: hidden; white-space: nowrap;">
-                <div class="container d-flex align-items-center">
-                    <div class="fw-bold pe-3 ps-2 py-1 text-uppercase ticker-box rounded-1 me-3" style="z-index: 2;">
-                        <i class="bi bi-broadcast"></i> Breaking
-                    </div>
-                    <!-- CSS Marquee Animation -->
-                    <style>
-                        .ticker-wrapper {
-                            flex-grow: 1;
-                            overflow: hidden;
-                            position: relative;
-                        }
+        <!-- Breaking News Ticker -->
+        <div class="breaking-ticker py-2 shadow-sm" style="overflow: hidden; white-space: nowrap;">
+            <div class="container d-flex align-items-center">
+                <div class="fw-bold pe-3 ps-2 py-1 text-uppercase ticker-box rounded-1 me-3" style="z-index: 2;">
+                    <i class="bi bi-broadcast"></i> Breaking
+                </div>
+                <!-- CSS Marquee Animation -->
+                <style>
+                .ticker-wrapper {
+                    flex-grow: 1;
+                    overflow: hidden;
+                    position: relative;
+                }
 
-                        .ticker-content {
-                            display: inline-block;
-                            white-space: nowrap;
-                            animation: ticker 30s linear infinite;
-                        }
+                .ticker-content {
+                    display: inline-block;
+                    white-space: nowrap;
+                    animation: ticker 30s linear infinite;
+                }
 
-                        .ticker-content:hover {
-                            animation-play-state: paused;
-                        }
+                .ticker-content:hover {
+                    animation-play-state: paused;
+                }
 
-                        @keyframes ticker {
-                            0% {
-                                transform: translateX(100%);
-                            }
+                @keyframes ticker {
+                    0% {
+                        transform: translateX(100%);
+                    }
 
-                            100% {
-                                transform: translateX(-100%);
-                            }
-                        }
-                    </style>
-                    <div class="ticker-wrapper ps-2 border-start border-light border-opacity-50">
-                        <div class="ticker-content">
-                            <?php foreach ($breaking_news as $news): ?>
-                                <a href="<?= BASE_URL ?>/article.php?slug=<?= e($news['slug']) ?>"
-                                    class="text-white text-decoration-none me-5 fw-medium">
-                                    <span class="me-2">&bull;</span>
-                                    <?= e($news['title']) ?>
-                                </a>
-                            <?php endforeach; ?>
-                        </div>
+                    100% {
+                        transform: translateX(-100%);
+                    }
+                }
+                </style>
+                <div class="ticker-wrapper ps-2 border-start border-light border-opacity-50">
+                    <div class="ticker-content">
+                        <?php foreach ($breaking_news as $news): ?>
+                        <a href="<?= BASE_URL ?>/article.php?slug=<?= e($news['slug']) ?>"
+                            class="text-white text-decoration-none me-5 fw-medium">
+                            <span class="me-2">&bull;</span>
+                            <?= e($news['title']) ?>
+                        </a>
+                        <?php endforeach; ?>
                     </div>
                 </div>
             </div>
+        </div>
         <?php endif; ?>
 
         <!-- Sticky Filter Bar -->
-        <div class="sticky-filters py-3 mb-4 sticky-top border-bottom"
+        <div class="sticky-filters py-3 mb-4  border-bottom"
             style="top: 76px; z-index: 1010; background: var(--glass-bg); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);">
             <div class="container">
                 <div class="d-flex flex-wrap gap-2 pb-2" style="scrollbar-width: thin; overflow: visible;">
                     <a href="<?= BASE_URL ?>/?category=all" class="filter-btn text-decoration-none text-nowrap">All
                         News</a>
                     <?php foreach ($category_tree as $parent): ?>
-                        <?php if (!empty($parent['children'])): ?>
-                            <div class="dropdown">
-                                <a href="#"
-                                    class="filter-btn text-decoration-none text-nowrap <?= $article['category_slug'] === $parent['slug'] ? 'active' : '' ?>"
-                                    data-bs-toggle="dropdown" aria-expanded="false">
-                                    <?= e($parent['name']) ?>
+                    <?php if (!empty($parent['children'])): ?>
+                    <div class="dropdown">
+                        <a href="#"
+                            class="filter-btn text-decoration-none text-nowrap <?= $article['category_slug'] === $parent['slug'] ? 'active' : '' ?>"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            <?= e($parent['name']) ?>
+                        </a>
+                        <ul class="dropdown-menu shadow border-0" style="border-radius: 12px; z-index: 1050;">
+                            <li>
+                                <a class="dropdown-item fw-bold text-primary bg-primary bg-opacity-10 rounded mx-2 mb-1 py-2 d-flex justify-content-between align-items-center"
+                                    style="width: calc(100% - 1rem);"
+                                    href="<?= BASE_URL ?>/?category=<?= $parent['slug'] ?>">
+                                    <span><?= e($parent['name']) ?></span>
+                                    <i class="bi bi-arrow-right-circle-fill"></i>
                                 </a>
-                                <ul class="dropdown-menu shadow border-0" style="border-radius: 12px; z-index: 1050;">
-                                    <li>
-                                        <a class="dropdown-item fw-bold text-primary bg-primary bg-opacity-10 rounded mx-2 mb-1 py-2 d-flex justify-content-between align-items-center"
-                                            style="width: calc(100% - 1rem);"
-                                            href="<?= BASE_URL ?>/?category=<?= $parent['slug'] ?>">
-                                            <span><?= e($parent['name']) ?></span>
-                                            <i class="bi bi-arrow-right-circle-fill"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <hr class="dropdown-divider">
-                                    </li>
-                                    <?php foreach ($parent['children'] as $child): ?>
-                                        <li><a class="dropdown-item <?= $article['category_slug'] === $child['slug'] ? 'active bg-primary text-white' : '' ?>"
-                                                href="<?= BASE_URL ?>/?category=<?= $child['slug'] ?>"><?= e($child['name']) ?></a>
-                                        </li>
-                                    <?php endforeach; ?>
-                                </ul>
-                            </div>
-                        <?php else: ?>
-                            <a href="<?= BASE_URL ?>/?category=<?= $parent['slug'] ?>"
-                                class="filter-btn text-decoration-none text-nowrap <?= $article['category_slug'] === $parent['slug'] ? 'active' : '' ?>">
-                                <?= e($parent['name']) ?>
-                            </a>
-                        <?php endif; ?>
+                            </li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <?php foreach ($parent['children'] as $child): ?>
+                            <li><a class="dropdown-item <?= $article['category_slug'] === $child['slug'] ? 'active bg-primary text-white' : '' ?>"
+                                    href="<?= BASE_URL ?>/?category=<?= $child['slug'] ?>"><?= e($child['name']) ?></a>
+                            </li>
+                            <?php endforeach; ?>
+                        </ul>
+                    </div>
+                    <?php else: ?>
+                    <a href="<?= BASE_URL ?>/?category=<?= $parent['slug'] ?>"
+                        class="filter-btn text-decoration-none text-nowrap <?= $article['category_slug'] === $parent['slug'] ? 'active' : '' ?>">
+                        <?= e($parent['name']) ?>
+                    </a>
+                    <?php endif; ?>
                     <?php endforeach; ?>
                 </div>
             </div>
@@ -349,18 +349,18 @@ $is_bookmarked = in_array('bookmark', $interactions);
                                 <span class="text-primary"><i class="bi bi-stopwatch"></i> <?= $word_count ?>
                                     WORDS</span>
                                 <?php if ($article['fact_checked']): ?>
-                                    <div class="vr"></div>
-                                    <span class="text-success"><i class="bi bi-shield-check"></i> FACT CHECKED</span>
+                                <div class="vr"></div>
+                                <span class="text-success"><i class="bi bi-shield-check"></i> FACT CHECKED</span>
                                 <?php endif; ?>
                             </div>
                         </header>
 
                         <?php if ($article['filename']): ?>
-                            <figure class="mb-5 text-center rounded-4 overflow-hidden shadow-sm">
-                                <img src="<?= BASE_URL ?>/uploads/<?= e($article['folder']) ?>/<?= e($article['filename']) ?>"
-                                    class="img-fluid w-100 object-fit-cover" style="max-height: 500px;"
-                                    alt="<?= e($article['title']) ?>">
-                            </figure>
+                        <figure class="mb-5 text-center rounded-4 overflow-hidden shadow-sm">
+                            <img src="<?= BASE_URL ?>/uploads/<?= e($article['folder']) ?>/<?= e($article['filename']) ?>"
+                                class="img-fluid w-100 object-fit-cover" style="max-height: 500px;"
+                                alt="<?= e($article['title']) ?>">
+                        </figure>
                         <?php endif; ?>
 
                         <!-- Article Body -->
@@ -400,61 +400,61 @@ $is_bookmarked = in_array('bookmark', $interactions);
                             <h4 class="fw-bold mb-4">Join the Conversation</h4>
 
                             <?php if ($comment_error): ?>
-                                <div class="alert alert-danger px-3 py-2">
-                                    <?= e($comment_error) ?>
-                                </div>
+                            <div class="alert alert-danger px-3 py-2">
+                                <?= e($comment_error) ?>
+                            </div>
                             <?php endif; ?>
                             <?php if ($comment_success): ?>
-                                <div class="alert alert-success px-3 py-2"><i class="bi bi-check-circle"></i>
-                                    <?= e($comment_success) ?>
-                                </div>
+                            <div class="alert alert-success px-3 py-2"><i class="bi bi-check-circle"></i>
+                                <?= e($comment_success) ?>
+                            </div>
                             <?php endif; ?>
 
                             <?php if ($settings['require_account_comments'] && !isset($_SESSION['user_id'])): ?>
-                                <div class="alert alert-info border-0 bg-light text-dark rounded-4 p-4 text-center">
-                                    You must <a href="<?= BASE_URL ?>/auth/login.php"
-                                        class="fw-bold text-decoration-none">log
-                                        in</a> to post a comment.
-                                </div>
+                            <div class="alert alert-info border-0 bg-light text-dark rounded-4 p-4 text-center">
+                                You must <a href="<?= BASE_URL ?>/auth/login.php"
+                                    class="fw-bold text-decoration-none">log
+                                    in</a> to post a comment.
+                            </div>
                             <?php else: ?>
-                                <form method="POST" class="mb-5">
-                                    <?= csrf_field() ?>
-                                    <div class="row g-3 mb-3">
-                                        <div class="col-md-6">
-                                            <input type="text" name="author_name"
-                                                class="form-control rounded-4 border-light shadow-sm"
-                                                placeholder="Your Name (Optional)">
-                                        </div>
+                            <form method="POST" class="mb-5">
+                                <?= csrf_field() ?>
+                                <div class="row g-3 mb-3">
+                                    <div class="col-md-6">
+                                        <input type="text" name="author_name"
+                                            class="form-control rounded-4 border-light shadow-sm"
+                                            placeholder="Your Name (Optional)">
                                     </div>
-                                    <div class="mb-3">
-                                        <textarea name="comment" class="form-control rounded-4 border-light shadow-sm"
-                                            rows="3" placeholder="What are your thoughts on this?" required></textarea>
-                                    </div>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <small class="text-muted">Comments are moderated.</small>
-                                        <button type="submit" class="btn btn-dark rounded-pill px-4 fw-bold">Post
-                                            Comment</button>
-                                    </div>
-                                </form>
+                                </div>
+                                <div class="mb-3">
+                                    <textarea name="comment" class="form-control rounded-4 border-light shadow-sm"
+                                        rows="3" placeholder="What are your thoughts on this?" required></textarea>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <small class="text-muted">Comments are moderated.</small>
+                                    <button type="submit" class="btn btn-dark rounded-pill px-4 fw-bold">Post
+                                        Comment</button>
+                                </div>
+                            </form>
                             <?php endif; ?>
 
                             <div class="d-flex flex-column gap-4">
                                 <?php foreach ($approved_comments as $c): ?>
-                                    <div class="bg-white p-4 rounded-4 shadow-sm border border-light">
-                                        <div class="d-flex justify-content-between mb-2">
-                                            <span class="fw-bold"><?= e($c['author_name'] ?: 'Anonymous Reader') ?></span>
-                                            <small class="text-muted">
-                                                <?= time_ago($c['created_at']) ?>
-                                            </small>
-                                        </div>
-                                        <p class="mb-0 text-dark">
-                                            <?= nl2br(e($c['content'])) ?>
-                                        </p>
+                                <div class="bg-white p-4 rounded-4 shadow-sm border border-light">
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <span class="fw-bold"><?= e($c['author_name'] ?: 'Anonymous Reader') ?></span>
+                                        <small class="text-muted">
+                                            <?= time_ago($c['created_at']) ?>
+                                        </small>
                                     </div>
+                                    <p class="mb-0 text-dark">
+                                        <?= nl2br(e($c['content'])) ?>
+                                    </p>
+                                </div>
                                 <?php endforeach; ?>
                                 <?php if (empty($approved_comments)): ?>
-                                    <p class="text-muted text-center pt-3">No comments yet. Be the first to share your
-                                        thoughts!</p>
+                                <p class="text-muted text-center pt-3">No comments yet. Be the first to share your
+                                    thoughts!</p>
                                 <?php endif; ?>
                             </div>
                         </section>
@@ -480,80 +480,80 @@ $is_bookmarked = in_array('bookmark', $interactions);
     <!-- Minimal JS for Reading Tools -->
     <!-- Engagement and Tools JS -->
     <script>
-        const ARTICLE_ID = <?= intval($article['id']) ?>;
-        const ARTICLE_TITLE = "<?= addslashes($article['title']) ?>";
-        const ARTICLE_URL = window.location.href;
+    const ARTICLE_ID = <?= intval($article['id']) ?>;
+    const ARTICLE_TITLE = "<?= addslashes($article['title']) ?>";
+    const ARTICLE_URL = window.location.href;
 
-        function toggleInteraction(type) {
-            const formData = new FormData();
-            formData.append('article_id', ARTICLE_ID);
-            formData.append('type', type);
+    function toggleInteraction(type) {
+        const formData = new FormData();
+        formData.append('article_id', ARTICLE_ID);
+        formData.append('type', type);
 
-            fetch('<?= BASE_URL ?>/ajax_interaction.php', {
+        fetch('<?= BASE_URL ?>/ajax_interaction.php', {
                 method: 'POST',
                 body: formData
             })
-                .then(res => res.json())
-                .then(data => {
-                    if (data.success) {
-                        const btn = document.getElementById('btn-' + type);
-                        const icon = btn.querySelector('i');
-                        const textSpan = btn.querySelector('.btn-text');
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    const btn = document.getElementById('btn-' + type);
+                    const icon = btn.querySelector('i');
+                    const textSpan = btn.querySelector('.btn-text');
 
-                        if (type === 'like') {
-                            if (data.action === 'added') {
-                                btn.classList.replace('btn-outline-danger', 'btn-danger');
-                                icon.classList.replace('bi-heart', 'bi-heart-fill');
-                                textSpan.innerText = 'Liked';
-                            } else {
-                                btn.classList.replace('btn-danger', 'btn-outline-danger');
-                                icon.classList.replace('bi-heart-fill', 'bi-heart');
-                                textSpan.innerText = 'Like';
-                            }
-                        } else if (type === 'bookmark') {
-                            if (data.action === 'added') {
-                                btn.classList.replace('btn-outline-dark', 'btn-dark');
-                                icon.classList.replace('bi-bookmark', 'bi-bookmark-fill');
-                                textSpan.innerText = 'Saved';
-                            } else {
-                                btn.classList.replace('btn-dark', 'btn-outline-dark');
-                                icon.classList.replace('bi-bookmark-fill', 'bi-bookmark');
-                                textSpan.innerText = 'Save';
-                            }
+                    if (type === 'like') {
+                        if (data.action === 'added') {
+                            btn.classList.replace('btn-outline-danger', 'btn-danger');
+                            icon.classList.replace('bi-heart', 'bi-heart-fill');
+                            textSpan.innerText = 'Liked';
+                        } else {
+                            btn.classList.replace('btn-danger', 'btn-outline-danger');
+                            icon.classList.replace('bi-heart-fill', 'bi-heart');
+                            textSpan.innerText = 'Like';
+                        }
+                    } else if (type === 'bookmark') {
+                        if (data.action === 'added') {
+                            btn.classList.replace('btn-outline-dark', 'btn-dark');
+                            icon.classList.replace('bi-bookmark', 'bi-bookmark-fill');
+                            textSpan.innerText = 'Saved';
+                        } else {
+                            btn.classList.replace('btn-dark', 'btn-outline-dark');
+                            icon.classList.replace('bi-bookmark-fill', 'bi-bookmark');
+                            textSpan.innerText = 'Save';
                         }
                     }
-                });
-        }
-
-        function shareArticle(platform) {
-            let url = '';
-            const text = encodeURIComponent(ARTICLE_TITLE);
-            const link = encodeURIComponent(ARTICLE_URL);
-
-            if (platform === 'twitter') {
-                url = `https://twitter.com/intent/tweet?text=${text}&url=${link}`;
-            } else if (platform === 'facebook') {
-                url = `https://www.facebook.com/sharer/sharer.php?u=${link}`;
-            }
-
-            if (url) {
-                window.open(url, '_blank', 'width=600,height=400');
-            }
-        }
-
-        document.addEventListener('DOMContentLoaded', function () {
-            // Reading Progress
-            window.addEventListener('scroll', () => {
-                const docElem = document.documentElement;
-                const docBody = document.body;
-                let scrollTop = docElem.scrollTop || docBody.scrollTop;
-                let scrollHeight = docElem.scrollHeight || docBody.scrollHeight;
-                let clientHeight = docElem.clientHeight;
-                let percent = (scrollTop / (scrollHeight - clientHeight)) * 100;
-                const progress = document.getElementById('reading-progress');
-                if (progress) progress.style.width = percent + '%';
+                }
             });
+    }
+
+    function shareArticle(platform) {
+        let url = '';
+        const text = encodeURIComponent(ARTICLE_TITLE);
+        const link = encodeURIComponent(ARTICLE_URL);
+
+        if (platform === 'twitter') {
+            url = `https://twitter.com/intent/tweet?text=${text}&url=${link}`;
+        } else if (platform === 'facebook') {
+            url = `https://www.facebook.com/sharer/sharer.php?u=${link}`;
+        }
+
+        if (url) {
+            window.open(url, '_blank', 'width=600,height=400');
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        // Reading Progress
+        window.addEventListener('scroll', () => {
+            const docElem = document.documentElement;
+            const docBody = document.body;
+            let scrollTop = docElem.scrollTop || docBody.scrollTop;
+            let scrollHeight = docElem.scrollHeight || docBody.scrollHeight;
+            let clientHeight = docElem.clientHeight;
+            let percent = (scrollTop / (scrollHeight - clientHeight)) * 100;
+            const progress = document.getElementById('reading-progress');
+            if (progress) progress.style.width = percent + '%';
         });
+    });
     </script>
 </body>
 

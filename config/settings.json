@@ -1,7 +1,7 @@
 {
     "maintenance_mode": false,
     "site_title": "60-Second News",
-    "require_account_comments": false,
+    "require_account_comments": true,
     "user_theme": "premium",
     "admin_theme": "midnight"
 }

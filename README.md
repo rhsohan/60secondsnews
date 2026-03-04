@@ -2,73 +2,91 @@
 
 ![60SecNews Logo](https://img.shields.io/badge/Status-Premium-blueviolet?style=for-the-badge) ![PHP Version](https://img.shields.io/badge/PHP-8.2%2B-777bb4?style=for-the-badge&logo=php) ![MySQL](https://img.shields.io/badge/MySQL-8.0-4479A1?style=for-the-badge&logo=mysql)
 
-**60SecNews** is a high-performance, ultra-vibrant Content Management System designed for the era of rapid consumption. It enforces a strict **150-word editorial limit**, ensuring your audience gets the story they need in exactly one minute.
+**NST 60 Seconds Newspaper** is a modern online news platform made 
+for today’s fast-moving world. It provides the full news story in just 60 
+seconds, so readers can stay updated quickly and easily.
 
 Custom-built with **Vanilla PHP** and **Glassmorphism aesthetics**, it combines raw speed with a premium, state-of-the-art user experience.
 
 ---
 
-## ✨ Premium Features
+## Key Features
 
-*   **💎 Glassmorphism UI**: A stunning "frosted glass" interface with dynamic mesh gradients and smooth micro-animations.
-*   **⏱️ One-Minute Stories**: Strict word-count enforcement (150 words) to guarantee lightning-fast reading.
-*   **🚀 Caching Layer**: Automated HTML caching serves pages in milliseconds, bypassing the database for repeat visitors.
-*   **🛡️ Multi-Level RBAC**: 5 specialized roles (Admin, Publisher, Editor, Writer, Media) with granular permission control.
-*   **🕰️ Revision History**: A digital "Time Machine" that tracks every single change to every news article.
-*   **📱 Reading Optimization**: Built-in "Reading Mode," dynamic font-resizing, and Masonry grid layouts.
-*   **📧 Automated Digests**: Background Cron scripts that blast daily top stories to your subscribers.
+1. Breaking News System
+A real-time ticker or notification bar for urgent updates.
 
----
+2. Category Filtering
+Sort news by Games, Tech, Sports, and more.
 
-## 🛠️ Tech Stack
+3. Ad-Free Interface
+A clean, minimalist UI focused strictly on text and clarity.
 
-### **Backend Logic**
-*   **Core**: Vanilla PHP 8.2+ (Framework-free for maximum efficiency).
-*   **Database**: MySQL 8.0/MariaDB with PDO Prepared Statements.
-*   **Patterns**: Singleton (DB), Service Layer (Media), and Centralized Helpers.
+4. Comment System
+Users can comment on news articles using their name or post anonymously.
 
-### **Frontend Aesthetics**
-*   **Style**: Modern CSS3 with Variables, Glass Panels, and Interactive Blurs.
-*   **UI Framework**: Bootstrap 5.3 + Bootstrap Icons.
-*   **Interactions**: Vanilla JavaScript (Fetch API) for non-blocking Likes & Saves.
-*   **Grid**: Custom Masonry.js integration for visual impact.
+5. Like and Save Option
+Users can like their favorite news and save articles to read later.
+
+6. Comfortable Reading Mode
+Clear fonts and proper text design to make reading smooth and easy on the eyes.
 
 ---
 
-## 🚀 Quick Setup
+## 🛠️ Technology Stack
 
-1.  **Environment**: Place the project folder in your `xampp/htdocs` directory.
-2.  **Database**:
-    *   Create a database named `60secnews`.
-    *   Import the blueprint from `database/schema.sql`.
-3.  **Configuration**:
-    *   Set your site credentials in `config/config.php`.
-4.  **Permissions**:
-    *   Ensure `/storage/cache` and `/public/uploads` have write permissions.
-5.  **Enjoy**: Visit the root URL to see the high-vibrancy frontend!
+1. Frontend
 
+HTML5
+
+CSS3
+
+JavaScript
+
+Bootstrap – For responsive, mobile-first design
+
+2. Backend
+
+PHP – For handling server-side logic and news routing
+
+3. Database & Hosting
+
+MySQL Database – For storing news articles, user data, comments, and other content
 ---
+
+
 
 ## 🔐 Master Accounts
 
 | Role | Username | Password | Access Level |
 | :--- | :--- | :--- | :--- |
 | **Super Admin** | `sohan` | `1234567890` | Full System Control |
-| **Field Writer** | `field_writer` | `password123` | Content Creation Only |
-| **Lead Publisher** | `lead_publisher` | `password123` | Final Editorial Review |
+| **editor** | `editor` | `1234567890` | Content Creation Only |
+| **Lead Publisher** | `publisher` | `1234567890` | Final Editorial Review |
 
 ---
 
-## 📖 Technical Documentation
+Future Improvements
 
-For a deep-dive, file-by-file explanation of how the entire codebase works (ideal for junior developers), check out:
-👉 [**STRUCTURE.md - The Full Technical Guide**](STRUCTURE.md)
+1. **AI Integration**
 
----
+Using Natural Language Processing (NLP) to automatically summarize long articles into 60-second bites.
+
+2. **Personalized Feeds**
+
+A “For You” section based on user reading habits and interests.
+
+3.** Audio Briefings**
+
+A “Listen” button to read the 60-second summary aloud for better accessibility.
+
+4. **Mobile App**
+
+Developing a cross-platform Flutter or React Native app to provide push notifications and a smoother mobile experience.
+
+5.** Approved Comments **
+Users can comment on news articles, but comments will appear publicly only after admin approval to maintain content quality and security.
 
 ## 🛡️ Security Posture
-*   **CSRF Validation**: Every POST form is protected by unique, unpredictable tokens.
-*   **Brute-Force Shield**: IP-level tracking that locks accounts after 5 failed attempts.
 *   **XSS Neutralization**: Centralized `e()` function to sanitize all user output.
 *   **SQL Isolation**: 100% Prepared Statements for all database interactions.
 
@@ -76,3 +94,5 @@ For a deep-dive, file-by-file explanation of how the entire codebase works (idea
 
 ## 📄 License
 This project is open-source. Build something fast. Build something beautiful.
+
+Live link: https://nst60secnews.xo.je/

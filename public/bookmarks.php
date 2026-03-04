@@ -9,7 +9,7 @@ $db = DB::getInstance()->getConnection();
 $session_id = session_id();
 $type_filter = $_GET['type'] ?? '';
 
-// Fetch liked/saved articles
+// Fetch liked/saved articles from database
 $sql = "
     SELECT a.*, b.type as interaction_type, c.name as category_name, m.filename, m.folder
     FROM articles a
@@ -38,7 +38,7 @@ if (file_exists($settings_file))
     $settings = array_merge($settings, json_decode(file_get_contents($settings_file), true));
 
 $breaking_news = $db->query("SELECT title,slug,publish_at FROM articles WHERE status='published' AND is_breaking=1 AND publish_at<=NOW() ORDER BY publish_at DESC LIMIT 5")->fetchAll();
-$search_query = ""; // for header compatibility
+$search_query = ""; // for header compatibility 
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -88,7 +88,7 @@ $search_query = ""; // for header compatibility
                 </div>
             </div>
         </nav>
-
+<!-- Navbar close  -->
         <div class="container py-5 mt-4">
             <div class="row justify-content-center">
                 <div class="col-lg-10">
